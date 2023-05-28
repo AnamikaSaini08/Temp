@@ -21,14 +21,11 @@ import store from './utils/store';
   ]);
 
   const App = ()=>(
-    <DragDropContext onDragEnd={()=>{}}>
      <Provider store={store}>
     <div>
         <RouterProvider router={appRouter}/>
     </div>
     </Provider>
-    </DragDropContext>
-    
 )
 
 export default App;
