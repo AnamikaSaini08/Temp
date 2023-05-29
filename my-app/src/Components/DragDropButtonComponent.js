@@ -1,16 +1,16 @@
 import React, { useState , useEffect } from 'react';
 import { setButtonText } from '../utils/constants/setButtonText';
+import LogicOutput from './LogicOutput';
 
-function DragDropButtonComponent({boxSize  , setCarPosition , buttons}) {
+function DragDropButtonComponent({boxSize  , setCarPosition , buttons ,handleRotateCarClockWise ,handleRotateCarAntiClockWise}) {
 
   const [draggedButtonId, setDraggedButtonId] = useState(null);
   const [boxes, setBoxes] = useState([]);
   const [fillbox , setFillBox] = useState(0);
-
+  
   useEffect(() => {
     setBoxes(new Array(boxSize).fill(null));
   }, [boxSize]);
-
 
   const changeCarPosition = () => {
     if(fillbox < boxSize){
@@ -18,26 +18,33 @@ function DragDropButtonComponent({boxSize  , setCarPosition , buttons}) {
       return;
     }
     let pos = {x: 0, y: 0};
-    boxes.forEach((box) => {
-      if(box === 'left' && pos.x > 0){
-        pos = {...pos , x: pos.x-1};
-      }
-      else if(box === 'right' && pos.x < 2){
-        pos = {...pos , x: pos.x+1};
-      }
-      else if(box === 'top' && pos.y > 0){
-        pos = {...pos , y: pos.y-1};
-      }
-      else if(box === 'bottom' && pos.y < 2){
-        pos = {...pos , y: pos.y+1};
+    let index = 0;
 
+    const interval = setInterval(()=>{
+      if(index >= boxSize){
+        clearInterval(interval);
+        return;
       }
-      console.log("After operation- ", pos);
-      });
-      console.log("Position---------",pos);
+      const box = boxes[index];
+      if (box === "left" && pos.x > 0) {
+        pos = { ...pos, x: pos.x - 1 };
+      } else if (box === "right" && pos.x < 2) {
+        pos = { ...pos, x: pos.x + 1 };
+      } else if (box === "top" && pos.y > 0) {
+        pos = { ...pos, y: pos.y - 1 };
+      } else if (box === "bottom" && pos.y < 2) {
+        pos = { ...pos, y: pos.y + 1 };
+      }
+      else if(box === "turn-right"){
+        handleRotateCarClockWise();
+      }
+      else if(box === "turn-left"){
+        handleRotateCarAntiClockWise();
+      }
+      index++;
       setCarPosition({...pos});
+    } , 700)
   };
-  
   
   const handleDragStart = (buttonId)=> {
     setDraggedButtonId(buttonId);
@@ -66,17 +73,17 @@ function DragDropButtonComponent({boxSize  , setCarPosition , buttons}) {
     const buttonText = setButtonText(buttonId);
     return (
       <button
-        className=" bg-blue-400 text-white rounded mx-1 w-9 h-9 p-1"
+        className=" bg-blue-400 text-white rounded mx-1 w-9 h-9"
         draggable="true"
         onDragStart={() => handleDragStart(buttonId)}
       >
-        <img src={buttonText} alt='|' className='h-full w-full object-cover'/>
+        <img src={buttonText} alt='|' className='h-full w-full'/>
       </button>
     );
   };
 
   return (
-    <div className='ml-2 sm:ml-10 mt-2 w-80 sm:w-96'>
+    <div className='ml-2 sm:ml-10 mt-2 w-80 sm:w-96 md:ml-16'>
     <div className='bg-blue-950'>
     <div className='flex justify-around'>
         <h1 className=' text-white text-lg py-2'>Logic Panel</h1>
@@ -91,7 +98,7 @@ function DragDropButtonComponent({boxSize  , setCarPosition , buttons}) {
         {boxes.map((box, index) => (
           <div
             key={index}
-            className=" border-dashed border-2 border-gray-400 w-10 h-10 flex items-center justify-center m-2"
+            className=" border-dashed border-2 border-gray-400 w-9 h-9 flex items-center justify-center m-2 object-cover"
             onDragOver={handleDragOver}
             onDrop={() => handleDrop(index)}
           >
@@ -101,29 +108,22 @@ function DragDropButtonComponent({boxSize  , setCarPosition , buttons}) {
       </div>
       <hr/>
 
-      <div className="flex justify-center my-4 h-[7vh]">
-        <div className="flex flex-wrap">
+      <div className="flex justify-between my-4 h-full">
+        <div className="flex flex-wrap my-0 ">
         {buttons.map( (button)=>(
           renderButton(button)
         ))}
 
         </div>
         <button
-        className='ml-10 bg-yellow-500 px-5  rounded-lg text-bold '
+        className='bg-yellow-500 px-5  rounded-lg text-bold '
              onClick={changeCarPosition}
         >Play</button>
       </div>
       <hr/>
       </div>
       
-      <div className='mt-1'>
-          <h1 className='flex justify-center py-1 text-white bg-blue-950'>Program Panel</h1>
-          <div className='flex flex-wrap flex-col bg-blue-500 h-32'>
-            {boxes.map((box, ind) => (
-              <h1 key={ind} className='text-white ml-2 text-lg'>{box}</h1>
-            ))}
-          </div>
-      </div>
+      <LogicOutput boxes={boxes}/>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ChessboardComponent from "./ChessboardComponent";
+import CarGameActivity from "./CarGameActivity";
 import QuizGame from './QuizGame';
 
 const Carousel = () => {
@@ -27,7 +27,7 @@ const Carousel = () => {
           <embed  className="w-full flex-shrink-0 px-4 h-full flex items-center justify-center" src="https://www.africau.edu/images/default/sample.pdf" type="application/pdf" />
           
           <div className="w-full flex-shrink-0 h-full">
-            <ChessboardComponent row={3} 
+            <CarGameActivity row={3} 
                                  col={3} 
                                  image={"https://media.istockphoto.com/id/1222528432/photo/car-small-cartoon-side.webp?b=1&s=170667a&w=0&k=20&c=HV06yu5flDeRvNFDtvkwP8wIXgr9kXHL-8H-x5bYEAI="}
 
