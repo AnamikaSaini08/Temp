@@ -1,25 +1,13 @@
 import React, { useState } from "react";
 import ChessboardComponent from "./ChessboardComponent";
 import QuizGame from './QuizGame';
-import {useSelector, useDispatch} from 'react-redux';
-import { buttonDeactivate } from "../utils/carouselButtonSlice";
-import MatchingQuizComponent from './DragDropButtonComponent';
 
 const Carousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [nextButtonCount , setNextButtonCount] = useState(1);
   const slideLength = 6;
-  const isButtonActive = useSelector(store=>store.carouselButton.isButtonActive);
-  const dispatch = useDispatch();
 
   const nextSlide = () => {
-    setNextButtonCount(nextButtonCount+1);
-    if( nextButtonCount === 6){
-      alert("First Complete this quiz");
-      dispatch(buttonDeactivate());
-    }else{
       setCurrentSlide((currentSlide + 1) % slideLength);
-    }
   };
 
   const previousSlide = () => {
@@ -38,8 +26,12 @@ const Carousel = () => {
           <iframe className="w-full flex-shrink-0 px-4 h-full flex items-center justify-center" width="560" height="315" src="https://www.youtube.com/embed/QwuQESNEb6w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
           <embed  className="w-full flex-shrink-0 px-4 h-full flex items-center justify-center" src="https://www.africau.edu/images/default/sample.pdf" type="application/pdf" />
           
-          <div className="w-full flex-shrink-0 h-full  flex items-center justify-center">
-          <ChessboardComponent/>
+          <div className="w-full flex-shrink-0 h-full">
+            <ChessboardComponent row={3} 
+                                 col={3} 
+                                 image={"https://media.istockphoto.com/id/1222528432/photo/car-small-cartoon-side.webp?b=1&s=170667a&w=0&k=20&c=HV06yu5flDeRvNFDtvkwP8wIXgr9kXHL-8H-x5bYEAI="}
+
+            />
           </div>
 
           <div className="w-full flex-shrink-0 px-4 h-full flex items-center justify-center bg-gradient-to-r from-violet-300 to-fuchsia-500 " >
@@ -55,16 +47,12 @@ const Carousel = () => {
         >
           &lt; Previous
         </button>
-        {isButtonActive ? <button
+        <button
           onClick={nextSlide}
           className="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600"
         >
           Next &gt;
-        </button> : <button
-          className="px-4 py-2 rounded bg-gray-500 text-black"
-        >
-          Next &gt;
-        </button>}
+        </button>
       </div>
     </div>
   );

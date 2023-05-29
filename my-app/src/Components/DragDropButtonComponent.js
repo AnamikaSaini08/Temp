@@ -1,21 +1,19 @@
 import React, { useState , useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import {updateBoxSequence} from '../utils/dragDropButtonSequenceGameSlice';
+import { setButtonText } from '../utils/constants/setButtonText';
 
-function DragDropButtonComponent({size , carPosition , setCarPosition}) {
-  const dispatch = useDispatch();
+function DragDropButtonComponent({boxSize  , setCarPosition , buttons}) {
 
   const [draggedButtonId, setDraggedButtonId] = useState(null);
   const [boxes, setBoxes] = useState([]);
   const [fillbox , setFillBox] = useState(0);
-  useEffect(() => {
-    setBoxes(new Array(size).fill(''));
-  }, [size]);
 
-  console.log("Boxes-" , boxes);
+  useEffect(() => {
+    setBoxes(new Array(boxSize).fill(null));
+  }, [boxSize]);
+
 
   const changeCarPosition = () => {
-    if(fillbox < size){
+    if(fillbox < boxSize){
       alert("First fill all the blocks then click play logic");
       return;
     }
@@ -41,9 +39,7 @@ function DragDropButtonComponent({size , carPosition , setCarPosition}) {
   };
   
   
-
-
-  const handleDragStart = (e, buttonId)=> {
+  const handleDragStart = (buttonId)=> {
     setDraggedButtonId(buttonId);
   };
 
@@ -51,91 +47,82 @@ function DragDropButtonComponent({size , carPosition , setCarPosition}) {
     e.preventDefault();
   };
 
-  const handleDrop = (e, index) => {
-    e.preventDefault();
+  const handleDrop = (index) => {
     setFillBox(fillbox+1);
     if (draggedButtonId) {
       const updatedBoxes = [...boxes];
       updatedBoxes[index] = draggedButtonId;
       setBoxes(updatedBoxes);
-      dispatch(updateBoxSequence(updatedBoxes));
       setDraggedButtonId(null);
     }
   };
 
+  const eraseBoxes = ()=>{
+    setBoxes(new Array(boxSize).fill(null));
+    setCarPosition({x:0,y:0})
+  }
 
   const renderButton = (buttonId) => {
-    let buttonText = '';
-    switch (buttonId) {
-      case 'left':
-        buttonText = 'Left';
-        break;
-      case 'right':
-        buttonText = 'Right';
-        break;
-      case 'top':
-        buttonText = 'Top';
-        break;
-      case 'bottom':
-        buttonText = 'Bottom';
-        break;
-      case 'turn-left':
-        buttonText = 'Turn Left';
-        break;
-      case 'turn-right':
-        buttonText = 'Turn Right';
-        break;
-      default:
-        break;
-    }
-
+    const buttonText = setButtonText(buttonId);
     return (
       <button
-        className="p-2 bg-blue-500 text-white rounded"
+        className=" bg-blue-400 text-white rounded mx-1 w-9 h-9 p-1"
         draggable="true"
-        onDragStart={(e) => handleDragStart(e, buttonId)}
+        onDragStart={() => handleDragStart(buttonId)}
       >
-        {buttonText}
+        <img src={buttonText} alt='|' className='h-full w-full object-cover'/>
       </button>
     );
   };
 
   return (
-    <div className='bg-slate-600 pt-5'>
+    <div className='ml-2 sm:ml-10 mt-2 w-80 sm:w-96'>
+    <div className='bg-blue-950'>
+    <div className='flex justify-around'>
+        <h1 className=' text-white text-lg py-2'>Logic Panel</h1>
+        <button onClick={()=>eraseBoxes()}>
+          <img className='max-w-6 max-h-6 rounded-full'
+          src="https://media.istockphoto.com/id/171366630/photo/eraser.jpg?s=612x612&w=0&k=20&c=uVMsURPedBC0MghiNTogh82M-UcSeYAu29PWsbmZsNQ="
+          alt="erase"
+        /></button>
+    </div>
+   <hr/>
       <div className="flex flex-wrap justify-center">
         {boxes.map((box, index) => (
           <div
             key={index}
-            className="truncate border-dashed border-2 border-gray-400 h-[8vh] w-[4vw] flex items-center justify-center m-2"
+            className=" border-dashed border-2 border-gray-400 w-10 h-10 flex items-center justify-center m-2"
             onDragOver={handleDragOver}
-            onDrop={(e) => handleDrop(e, index)}
+            onDrop={() => handleDrop(index)}
           >
             {box ? renderButton(box) : ''}
           </div>
         ))}
       </div>
+      <hr/>
+
       <div className="flex justify-center my-4 h-[7vh]">
-        <div className="flex truncate">
-          {renderButton('left')}
-          {renderButton('right')}
-          {renderButton('top')}
-          {renderButton('bottom')}
-          {renderButton('turn-left')}
-          {renderButton('turn-right')}
+        <div className="flex flex-wrap">
+        {buttons.map( (button)=>(
+          renderButton(button)
+        ))}
+
         </div>
         <button
-        className=' ml-10 bg-green-500 px-5 py-2 rounded-lg truncate'
+        className='ml-10 bg-yellow-500 px-5  rounded-lg text-bold '
              onClick={changeCarPosition}
-        >Play Logic</button>
+        >Play</button>
       </div>
       <hr/>
-      <div className='mt-2'>
-      <h1 className='flex justify-center py-4 bg-blue-950'>Program Panel</h1>
-      <div className='flex flex-wrap flex-col'>
-        {boxes.map((box, ind) => (
-          <h1 key={ind} className='text-white ml-2 text-xl'>{box}</h1>
-        ))}
       </div>
+      
+      <div className='mt-1'>
+          <h1 className='flex justify-center py-1 text-white bg-blue-950'>Program Panel</h1>
+          <div className='flex flex-wrap flex-col bg-blue-500 h-32'>
+            {boxes.map((box, ind) => (
+              <h1 key={ind} className='text-white ml-2 text-lg'>{box}</h1>
+            ))}
+          </div>
       </div>
     </div>
   );
