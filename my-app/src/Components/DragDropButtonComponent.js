@@ -2,7 +2,7 @@ import React, { useState , useEffect } from 'react';
 import { setButtonText } from '../utils/constants/setButtonText';
 import LogicOutput from './LogicOutput';
 
-function DragDropButtonComponent({boxSize  , setCarPosition , buttons ,handleRotateCarClockWise ,handleRotateCarAntiClockWise}) {
+function DragDropButtonComponent({carRoute ,row, col ,boxSize  , setCarPosition , buttons ,handleRotateCarClockWise ,handleRotateCarAntiClockWise}) {
 
   const [draggedButtonId, setDraggedButtonId] = useState(null);
   const [boxes, setBoxes] = useState([]);
@@ -23,16 +23,25 @@ function DragDropButtonComponent({boxSize  , setCarPosition , buttons ,handleRot
     const interval = setInterval(()=>{
       if(index >= boxSize){
         clearInterval(interval);
+        if(pos.x === col-1 && pos.y === row-1){
+          alert("You won the game")
+          const isCarPresent = carRoute.some(route => JSON.stringify(route) === JSON.stringify(boxes));
+          if(isCarPresent){
+            alert("You Play Optimically. Excellent!")
+          }else{
+            alert("You does't Play Optimally. Try Best!")
+          }
+        }
         return;
       }
       const box = boxes[index];
       if (box === "left" && pos.x > 0) {
         pos = { ...pos, x: pos.x - 1 };
-      } else if (box === "right" && pos.x < 2) {
+      } else if (box === "right" && pos.x < col) {
         pos = { ...pos, x: pos.x + 1 };
       } else if (box === "top" && pos.y > 0) {
         pos = { ...pos, y: pos.y - 1 };
-      } else if (box === "bottom" && pos.y < 2) {
+      } else if (box === "bottom" && pos.y < row) {
         pos = { ...pos, y: pos.y + 1 };
       }
       else if(box === "turn-right"){
@@ -61,6 +70,7 @@ function DragDropButtonComponent({boxSize  , setCarPosition , buttons ,handleRot
       updatedBoxes[index] = draggedButtonId;
       setBoxes(updatedBoxes);
       setDraggedButtonId(null);
+      console.log(boxes);
     }
   };
 
@@ -83,7 +93,7 @@ function DragDropButtonComponent({boxSize  , setCarPosition , buttons ,handleRot
   };
 
   return (
-    <div className='ml-2 sm:ml-10 mt-2 w-80 sm:w-96 md:ml-16'>
+    <div className='ml-2 sm:ml-10 mt-8 w-80 sm:w-96 md:ml-16 xl:ml-40 2xl:ml-72'>
     <div className='bg-blue-950'>
     <div className='flex justify-around'>
         <h1 className=' text-white text-lg py-2'>Logic Panel</h1>

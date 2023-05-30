@@ -3,7 +3,6 @@ import Login from './Components/Login';
 import Home from './Components/Home';
 import { createBrowserRouter , RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import {DragDropContext} from 'react-beautiful-dnd';
 import store from './utils/store';
 
   const appRouter = createBrowserRouter([

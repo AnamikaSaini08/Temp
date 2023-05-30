@@ -4,13 +4,13 @@ import DragDropButtonComponent from './DragDropButtonComponent';
 import GameMatrix from './GameMatrix';
 
 
-function CarGameActivity({row,col ,image}) {
+function CarGameActivityTwo({row,col ,image}) {
   const [carPosition , setCarPosition] = useState({x:0 , y:0});
   const [rotateCarClockWise , setRotateCarClockWise] = useState(false);
   const [rotateCarAntiClockWise , setRotateCarAntiClockWise] = useState(false);
   const endPosition =  {x:row , y:col};
-  const carRoute = [["right","right","turn-right","bottom","bottom"] , 
-                    ["turn-right","bottom","bottom","right","right"] ,
+  const carRoute = [["right","right","right","turn-right","bottom","bottom","bottom"] , 
+                    ["turn-right","bottom","bottom","bottom","right","right","right"] ,
                    ]
 
   
@@ -50,10 +50,10 @@ function CarGameActivity({row,col ,image}) {
                 </div> 
                 <div className='flex-shrink-0 '>
                     <DragDropButtonComponent
-                     carRoute ={carRoute}
+                      carRoute = {carRoute}
                       row={row}
                       col={col}
-                      boxSize={5}
+                      boxSize={7}
                       setCarPosition={setCarPosition}
                       buttons={["left","right","top","bottom","turn-left","turn-right"]}
                       handleRotateCarClockWise={handleRotateCarClockWise}
@@ -69,4 +69,4 @@ function CarGameActivity({row,col ,image}) {
   );
 }
 
-export default CarGameActivity;
+export default CarGameActivityTwo;

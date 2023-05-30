@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import CarGameActivity from "./CarGameActivity";
 import QuizGame from './QuizGame';
+import CarGameActivityTwo from "./CarGameActivityTwo";
 
 const Carousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -30,6 +31,13 @@ const Carousel = () => {
             <CarGameActivity row={3} 
                                  col={3} 
                                  image={"https://media.istockphoto.com/id/1222528432/photo/car-small-cartoon-side.webp?b=1&s=170667a&w=0&k=20&c=HV06yu5flDeRvNFDtvkwP8wIXgr9kXHL-8H-x5bYEAI="}
+
+            />
+          </div>
+          <div className="w-full flex-shrink-0 h-full">
+            <CarGameActivityTwo row={4} 
+                                 col={4} 
+                                 image={"https://media.istockphoto.com/id/841268820/photo/german-classic-car.jpg?s=612x612&w=0&k=20&c=1d5X_L8pmYaNZYh-xycthWuA_f7j3KQPBfOqHHLjc4Y="}
 
             />
           </div>
