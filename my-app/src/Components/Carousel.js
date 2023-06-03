@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import CarGameActivity from "./CarGameActivity";
 import QuizGame from './QuizGame';
 import CarGameActivityTwo from "./CarGameActivityTwo";
+import CarGameActivityLayoutTwo from "./CarGameActivityLayouttwo";
 
 const Carousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const slideLength = 6;
+  const slideLength = 7;
 
   const nextSlide = () => {
       setCurrentSlide((currentSlide + 1) % slideLength);
@@ -36,6 +37,13 @@ const Carousel = () => {
           </div>
           <div className="w-full flex-shrink-0 h-full">
             <CarGameActivityTwo row={4} 
+                                 col={4} 
+                                 image={"https://media.istockphoto.com/id/841268820/photo/german-classic-car.jpg?s=612x612&w=0&k=20&c=1d5X_L8pmYaNZYh-xycthWuA_f7j3KQPBfOqHHLjc4Y="}
+
+            />
+          </div>
+          <div className="w-full flex-shrink-0 h-full">
+            <CarGameActivityLayoutTwo row={4} 
                                  col={4} 
                                  image={"https://media.istockphoto.com/id/841268820/photo/german-classic-car.jpg?s=612x612&w=0&k=20&c=1d5X_L8pmYaNZYh-xycthWuA_f7j3KQPBfOqHHLjc4Y="}
 

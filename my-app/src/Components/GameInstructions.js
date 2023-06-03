@@ -3,6 +3,10 @@ import React from 'react'
 const GameInstructions = () => {
   return (
     <div className='bg-blue-950 text-white to-fuchsia-300 sm:h-screen'>
+     <div className='p-2'>
+              <h1 className='text-bold text-xl pb-1'>Activity 1: Logic Building</h1>
+              <p className='text-lg'>Build a logic to move a car to the green box.</p>
+      </div>
       <ol type= "1" className='sm:px-5 sm:py-4 leading-5 sm:leading-7'>
         <li>1. The objective of the game is to move a car from the starting position to the end position on the game board.</li>
         <li>2. The starting position of the car is (4, 4) and the end position is (8, 1).</li>
