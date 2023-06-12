@@ -2,11 +2,9 @@ import React, { useState } from 'react';
 import GameInstructions from './GameInstructions';
 import DragDropButtonComponent from './DragDropButtonComponent';
 import GameMatrix from './GameMatrix';
-import GameMatrixLayoutTwo from './GameMatrixLayoutTwo';
-import DragDropButtonComponentLayoutTwo from './DragDropButtonComponentLayoutTwo';
 
 
-function CarGameActivityLayoutTwo({row,col ,image}) {
+function CarGameActivity({row,col ,image}) {
   const [carPosition , setCarPosition] = useState({x:0 , y:0});
   const [rotateCarClockWise , setRotateCarClockWise] = useState(false);
   const [rotateCarAntiClockWise , setRotateCarAntiClockWise] = useState(false);
@@ -14,7 +12,6 @@ function CarGameActivityLayoutTwo({row,col ,image}) {
   const carRoute = [["right","right","turn-right","bottom","bottom"] , 
                     ["turn-right","bottom","bottom","right","right"] ,
                    ]
-    const [boxSize , setBoxSize] = useState(5)
 
   
   const handleRotateCarClockWise = ()=>{
@@ -32,12 +29,16 @@ function CarGameActivityLayoutTwo({row,col ,image}) {
        <GameInstructions/>
        </div> 
 
-       <div className='w-full '>
+       <div className='max-w-full '>
+          <div className='my-8 sm:m-8 md:mx-16'>
+              <h1 className='text-blue-950  sm:text-2xl text-bold mb-5 2xl:text-4xl'>Activity 1: Logic Building</h1>
+              <p className='text-sm 2xl:text-2xl'>1. Build a logic to move a car to the green box.</p>
+          </div>
 
-          <div className=''>
-                <div className='w-full flex justify-center mt-2'>
+          <div className='flex flex-wrap '>
+                <div className='flex-shrink-0 mx-2 sm:mx-10 sm:mt-16 mt-0 md:mx-16'>
                       <div className={`grid grid-cols-${col}`} >
-                          <GameMatrixLayoutTwo row={row}
+                          <GameMatrix row={row}
                             col={col}
                             carPosition = {carPosition}
                             rotateCarClockWise = {rotateCarClockWise}
@@ -47,14 +48,12 @@ function CarGameActivityLayoutTwo({row,col ,image}) {
                           />
                       </div>  
                 </div> 
-                <div className='w-full flex justify-center'>
-                    <DragDropButtonComponentLayoutTwo
+                <div className='flex-shrink-0 '>
+                    <DragDropButtonComponent
                      carRoute ={carRoute}
                       row={row}
                       col={col}
-                      initialBoxSize = {5}
-                      boxSize = {boxSize}
-                      setBoxSize = {setBoxSize}
+                      boxSize={5}
                       setCarPosition={setCarPosition}
                       buttons={["left","right","top","bottom","turn-left","turn-right"]}
                       handleRotateCarClockWise={handleRotateCarClockWise}
@@ -70,4 +69,4 @@ function CarGameActivityLayoutTwo({row,col ,image}) {
   );
 }
 
-export default CarGameActivityLayoutTwo;
+export default CarGameActivity;

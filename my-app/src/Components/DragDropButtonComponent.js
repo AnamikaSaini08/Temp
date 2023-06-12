@@ -1,48 +1,69 @@
 import React, { useState , useEffect } from 'react';
 import { setButtonText } from '../utils/constants/setButtonText';
-import LogicOutput from './LogicOutput';
+import Play from '../utils/images/Play.png';
+import Reset from '../utils/images/undo-arrow (1) 1.png';
 
-function DragDropButtonComponent({carRoute ,row, col ,boxSize  , setCarPosition , buttons ,handleRotateCarClockWise ,handleRotateCarAntiClockWise}) {
+function DragDropButtonComponent({boxes,robotDirection, setRobotDirection, setBoxes ,row, col ,boxSize  , setCarPosition , buttons ,handleRotateCarClockWise ,handleRotateCarAntiClockWise}) {
 
   const [draggedButtonId, setDraggedButtonId] = useState(null);
-  const [boxes, setBoxes] = useState([]);
-  const [fillbox , setFillBox] = useState(0);
   
   useEffect(() => {
     setBoxes(new Array(boxSize).fill(null));
   }, [boxSize]);
 
+  const eraseBoxes = ()=>{
+    setBoxes(new Array(boxSize).fill(null));
+    setCarPosition({x:0,y:0})
+  }
+
   const changeCarPosition = () => {
-    if(fillbox < boxSize){
-      alert("First fill all the blocks then click play logic");
-      return;
-    }
     let pos = {x: 0, y: 0};
     let index = 0;
-
     const interval = setInterval(()=>{
+     
       if(index >= boxSize){
         clearInterval(interval);
-        if(pos.x === col-1 && pos.y === row-1){
-          alert("You won the game")
-          const isCarPresent = carRoute.some(route => JSON.stringify(route) === JSON.stringify(boxes));
-          if(isCarPresent){
-            alert("You Play Optimically. Excellent!")
-          }else{
-            alert("You does't Play Optimally. Try Best!")
-          }
-        }
+        return;
+      }
+      if(pos.x === col-1 && pos.y === row-1){
+        alert("You won the game");
+        clearInterval(interval);
+        eraseBoxes();
         return;
       }
       const box = boxes[index];
-      if (box === "left" && pos.x > 0) {
-        pos = { ...pos, x: pos.x - 1 };
-      } else if (box === "right" && pos.x < col) {
-        pos = { ...pos, x: pos.x + 1 };
-      } else if (box === "top" && pos.y > 0) {
-        pos = { ...pos, y: pos.y - 1 };
-      } else if (box === "bottom" && pos.y < row) {
-        pos = { ...pos, y: pos.y + 1 };
+      if (box === "left") {
+        if(pos.x > 0)
+          pos = { ...pos, x: pos.x - 1 };
+        else{
+          alert("You Fail! Robot go out of boundary.");
+          clearInterval(interval);
+          return;
+        }
+      } else if (box === "right") {
+        if(pos.x < col)
+          pos = { ...pos, x: pos.x + 1 };
+        else{
+          alert("You Fail! Robot go out of boundary.");
+          clearInterval(interval);
+          return;
+        }
+      } else if (box === "top") {
+        if(pos.y > 0)
+          pos = { ...pos, y: pos.y - 1 };
+          else{
+            alert("You Fail! Robot go out of boundary.");
+            clearInterval(interval);
+            return;
+          }
+      } else if (box === "bottom") {
+        if(pos.y < row)
+          pos = { ...pos, y: pos.y + 1 };
+        else{
+          alert("You Fail! Robot go out of boundary.");
+          clearInterval(interval);
+          return;
+        }
       }
       else if(box === "turn-right"){
         handleRotateCarClockWise();
@@ -52,9 +73,11 @@ function DragDropButtonComponent({carRoute ,row, col ,boxSize  , setCarPosition 
       }
       index++;
       setCarPosition({...pos});
-    } , 700)
+      setRobotDirection([...robotDirection , `Robot Move ${box}`])
+    } , 1000);
   };
   
+
   const handleDragStart = (buttonId)=> {
     setDraggedButtonId(buttonId);
   };
@@ -64,26 +87,19 @@ function DragDropButtonComponent({carRoute ,row, col ,boxSize  , setCarPosition 
   };
 
   const handleDrop = (index) => {
-    setFillBox(fillbox+1);
     if (draggedButtonId) {
       const updatedBoxes = [...boxes];
       updatedBoxes[index] = draggedButtonId;
       setBoxes(updatedBoxes);
       setDraggedButtonId(null);
-      console.log(boxes);
     }
   };
-
-  const eraseBoxes = ()=>{
-    setBoxes(new Array(boxSize).fill(null));
-    setCarPosition({x:0,y:0})
-  }
 
   const renderButton = (buttonId) => {
     const buttonText = setButtonText(buttonId);
     return (
       <button
-        className=" bg-blue-400 text-white rounded mx-1 w-9 h-9"
+        className=" bg-gray-300 text-white rounded mx-1 w-9 h-9 p-2"
         draggable="true"
         onDragStart={() => handleDragStart(buttonId)}
       >
@@ -93,47 +109,46 @@ function DragDropButtonComponent({carRoute ,row, col ,boxSize  , setCarPosition 
   };
 
   return (
-    <div className='ml-2 sm:ml-10 mt-8 w-80 sm:w-96 md:ml-16 xl:ml-40 2xl:ml-72'>
-    <div className='bg-blue-950'>
-    <div className='flex justify-around'>
-        <h1 className=' text-white text-lg py-2'>Logic Panel</h1>
-        <button onClick={()=>eraseBoxes()}>
-          <img className='max-w-6 max-h-6 rounded-full'
-          src="https://media.istockphoto.com/id/171366630/photo/eraser.jpg?s=612x612&w=0&k=20&c=uVMsURPedBC0MghiNTogh82M-UcSeYAu29PWsbmZsNQ="
-          alt="erase"
-        /></button>
-    </div>
-   <hr/>
-      <div className="flex flex-wrap justify-center">
-        {boxes.map((box, index) => (
-          <div
-            key={index}
-            className=" border-dashed border-2 border-gray-400 w-9 h-9 flex items-center justify-center m-2 object-cover"
-            onDragOver={handleDragOver}
-            onDrop={() => handleDrop(index)}
-          >
-            {box ? renderButton(box) : ''}
-          </div>
-        ))}
+    <div className='w-full sticky'>
+    <div className='bg-blue-600 px-6 pb-3'>
+      <div className=''>
+          <h1 className=' text-white text-lg py-2'>Logic Panel</h1>
       </div>
-      <hr/>
+   
+        <div className="flex flex-wrap ">
+          {boxes.map((box, index) => (
+            <div
+              key={index}
+              className="bg-gray-300 border-dashed w-9 h-9  items-center  m-1 rounded-sm object-cover"
+              onDragOver={handleDragOver}
+              onDrop={() => handleDrop(index)}
+            >
+              {box ? renderButton(box) : ''}
+            </div>
+          ))}
+        </div>
+      </div>
+     
 
-      <div className="flex justify-between my-4 h-full">
-        <div className="flex flex-wrap my-0 ">
+      <div className="flex h-full bg-blue-950 py-3 px-6">
+        <div className="flex flex-wrap ">
         {buttons.map( (button)=>(
           renderButton(button)
         ))}
 
         </div>
         <button
-        className='bg-yellow-500 px-5  rounded-lg text-bold '
+        className='bg-yellow-500 px-2 text-bold h-9 w-20 pt-1 flex justify-between mx-2 text-blue-600'
              onClick={changeCarPosition}
-        >Play</button>
-      </div>
-      <hr/>
+        ><img src={Play} className='truncate h-7 w-6'/>Play</button>
+
+         <button
+        className='bg-yellow-500 px-4 text-bold h-9 w-14'
+             onClick={eraseBoxes}
+        ><img src={Reset}/></button>
       </div>
       
-      <LogicOutput boxes={boxes}/>
+      
     </div>
   );
 }

@@ -3,6 +3,7 @@ import CarGameActivity from "./CarGameActivity";
 import QuizGame from './QuizGame';
 import CarGameActivityTwo from "./CarGameActivityTwo";
 import CarGameActivityLayoutTwo from "./CarGameActivityLayouttwo";
+import RobotImg from '../utils/images/robot.png';
 
 const Carousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -18,7 +19,7 @@ const Carousel = () => {
 
   return (
     <div className="w-screen h-screen flex flex-col justify-center items-center">
-      <div className="relative overflow-x-hidden w-full h-full">
+      <div className="relative overflow-x-hidden overflow-y-hidden w-full h-full">
         <div
           className="flex transition-transform duration-300 h-full"
           style={{ transform: `translateX(-${currentSlide * 100}%)` }}
@@ -28,27 +29,27 @@ const Carousel = () => {
           <iframe className="w-full flex-shrink-0 px-4 h-full flex items-center justify-center" width="560" height="315" src="https://www.youtube.com/embed/QwuQESNEb6w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
           <embed  className="w-full flex-shrink-0 px-4 h-full flex items-center justify-center" src="https://www.africau.edu/images/default/sample.pdf" type="application/pdf" />
           
-          <div className="w-full flex-shrink-0 h-full">
+          {/*<div className="w-full flex-shrink-0 h-full">
             <CarGameActivity row={3} 
                                  col={3} 
                                  image={"https://media.istockphoto.com/id/1222528432/photo/car-small-cartoon-side.webp?b=1&s=170667a&w=0&k=20&c=HV06yu5flDeRvNFDtvkwP8wIXgr9kXHL-8H-x5bYEAI="}
 
             />
-          </div>
+          </div>*/}
           <div className="w-full flex-shrink-0 h-full">
-            <CarGameActivityTwo row={4} 
-                                 col={4} 
-                                 image={"https://media.istockphoto.com/id/841268820/photo/german-classic-car.jpg?s=612x612&w=0&k=20&c=1d5X_L8pmYaNZYh-xycthWuA_f7j3KQPBfOqHHLjc4Y="}
+            <CarGameActivityTwo row={5} 
+                                 col={5} 
+                                 image={RobotImg}
 
             />
           </div>
-          <div className="w-full flex-shrink-0 h-full">
-            <CarGameActivityLayoutTwo row={4} 
-                                 col={4} 
+          {/*<div className="w-full flex-shrink-0 h-full">
+            <CarGameActivityLayoutTwo row={5} 
+                                 col={5} 
                                  image={"https://media.istockphoto.com/id/841268820/photo/german-classic-car.jpg?s=612x612&w=0&k=20&c=1d5X_L8pmYaNZYh-xycthWuA_f7j3KQPBfOqHHLjc4Y="}
 
             />
-          </div>
+          </div>*/}
 
           <div className="w-full flex-shrink-0 px-4 h-full flex items-center justify-center bg-gradient-to-r from-violet-300 to-fuchsia-500 " >
           <QuizGame/>

@@ -123,9 +123,6 @@ function DragDropButtonComponentLayoutTwo({carRoute ,row, col ,initialBoxSize,bo
     <button className="text-white text-lg"
     onClick={()=>{
         setBoxSize(plusButtonClickCount*initialBoxSize);
-        console.log("plusButtonClickCount- ",plusButtonClickCount)
-        console.log("Boxsize- ",boxSize)
-        console.log("initialBoxSize- ",initialBoxSize);
         setPlusButtonClickCount(plusButtonClickCount+1);
     }}>
     +</button>

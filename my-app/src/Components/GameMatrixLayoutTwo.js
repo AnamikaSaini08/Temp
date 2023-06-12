@@ -5,7 +5,7 @@ const GameMatrixLayoutTwo = ({row, col, carPosition, rotateCarClockWise, rotateC
       Array.from({ length: col }, (_, colIndex) => {
         if (colIndex === carPosition?.x && rowIndex === carPosition?.y) {
           return (
-            <div key={`${rowIndex}-${colIndex}`} className="border border-blue-500 h-24 w-24">
+            <div key={`${rowIndex}-${colIndex}`} className="border border-blue-500 h-12 w-12 md:h-12 md:w-12">
               <img
                className={`h-full w-full object-cover ${rotateCarClockWise ? "rotate-90" : rotateCarAntiClockWise ? "rotate-270" : ''}`}
                 src={image}
@@ -15,12 +15,12 @@ const GameMatrixLayoutTwo = ({row, col, carPosition, rotateCarClockWise, rotateC
           );
         } else if(colIndex === endPosition.x-1 && rowIndex === endPosition.y-1){
           return (
-            <div key={`${rowIndex}-${colIndex}`} className="border border-blue-500 bg-green-300 h-24 w-24"></div>
+            <div key={`${rowIndex}-${colIndex}`} className="border border-blue-500 bg-green-300  h-12 w-12 md:h-12 md:w-12"></div>
           );
         }
         else{
           return(
-            <div key={`${rowIndex}-${colIndex}`} className="border border-blue-500 bg-gray-100 h-24 w-24"></div>
+            <div key={`${rowIndex}-${colIndex}`} className="border border-blue-500 bg-gray-100  h-12 w-12 md:h-12 md:w-12"></div>
           )
         }
       })
