@@ -13,10 +13,12 @@ function DragDropButtonComponent({boxes,robotDirection, setRobotDirection, setBo
 
   const eraseBoxes = ()=>{
     setBoxes(new Array(boxSize).fill(null));
-    setCarPosition({x:0,y:0})
+    setCarPosition({x:0,y:0});
+    setRobotDirection([]);
   }
 
   const changeCarPosition = () => {
+    setRobotDirection([]);
     let pos = {x: 0, y: 0};
     let index = 0;
     const interval = setInterval(()=>{
@@ -32,6 +34,9 @@ function DragDropButtonComponent({boxes,robotDirection, setRobotDirection, setBo
         return;
       }
       const box = boxes[index];
+      if(box === "null"){
+        alert("You do't put ")
+      }
       if (box === "left") {
         if(pos.x > 0)
           pos = { ...pos, x: pos.x - 1 };
@@ -71,9 +76,10 @@ function DragDropButtonComponent({boxes,robotDirection, setRobotDirection, setBo
       else if(box === "turn-left"){
         handleRotateCarAntiClockWise();
       }
-      index++;
+      index++;  
       setCarPosition({...pos});
-      setRobotDirection([...robotDirection , `Robot Move ${box}`])
+      if(box)
+          setRobotDirection(prevDirection => [...prevDirection, `Robot Move ${box}`]);
     } , 1000);
   };
   
@@ -95,6 +101,7 @@ function DragDropButtonComponent({boxes,robotDirection, setRobotDirection, setBo
     }
   };
 
+  
   const renderButton = (buttonId) => {
     const buttonText = setButtonText(buttonId);
     return (

@@ -1,7 +1,7 @@
 import React from 'react'
 
 const LogicOutput = ({robotDirection}) => {
-  console.log("00000000000000 ",robotDirection)
+ 
    return {robotDirection} && (
     <div className=''>
           <h1 className='flex justify-center py-2 text-white bg-blue-600'>Instructions Implemented</h1>
