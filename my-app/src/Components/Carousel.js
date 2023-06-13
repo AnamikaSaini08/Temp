@@ -12,6 +12,8 @@ const Carousel = () => {
   const col = 5;
   const endPosition = { x: row, y: col };
   const slideLength = 7;
+  const [batteryPosition, setBatteryPosition] = useState([ [1, 5],
+    [4, 3],]);
 
   const nextSlide = () => {
     setCurrentSlide((currentSlide + 1) % slideLength);
@@ -57,16 +59,14 @@ const Carousel = () => {
               carPosition={carPosition}
               setCarPosition={setCarPosition}
               endPosition={endPosition}
-              boxSize={14}
+              boxSize={8}
               boxes={boxes}
               setBoxes={setBoxes}
               robotDirection={robotDirection}
               setRobotDirection={setRobotDirection}
               buttons={["left", "right", "top", "bottom"]}
-              batteryPosition={[
-                [1, 2],
-                [4, 3],
-              ]}
+              batteryPosition={batteryPosition}
+              setBatteryPosition = {setBatteryPosition}
             />
           </div>
 
