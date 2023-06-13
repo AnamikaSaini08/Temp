@@ -1,16 +1,20 @@
 import React, { useState } from "react";
-import CarGameActivity from "./CarGameActivity";
-import QuizGame from './QuizGame';
+import QuizGame from "./QuizGame";
 import CarGameActivityTwo from "./CarGameActivityTwo";
-import CarGameActivityLayoutTwo from "./CarGameActivityLayouttwo";
-import RobotImg from '../utils/images/robot.png';
+import RobotImg from "../utils/images/robot.png";
 
 const Carousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [carPosition, setCarPosition] = useState({ x: 0, y: 0 });
+  const [boxes, setBoxes] = useState([]);
+  const [robotDirection, setRobotDirection] = useState([]);
+  const row = 5;
+  const col = 5;
+  const endPosition = { x: row, y: col };
   const slideLength = 7;
 
   const nextSlide = () => {
-      setCurrentSlide((currentSlide + 1) % slideLength);
+    setCurrentSlide((currentSlide + 1) % slideLength);
   };
 
   const previousSlide = () => {
@@ -24,37 +28,51 @@ const Carousel = () => {
           className="flex transition-transform duration-300 h-full"
           style={{ transform: `translateX(-${currentSlide * 100}%)` }}
         >
+          <img
+            className="w-full flex-shrink-0 px-4 h-full flex items-center justify-center"
+            src="https://media.istockphoto.com/id/1421080285/photo/colored-books-on-light-background-education-school.jpg?b=1&s=170667a&w=0&k=20&c=_azu_R-5-a26wGlrtusK_CWPuYXa9vtPg4nREZQpQu0="
+            alt="Image description"
+          />
+          <iframe
+            className="w-full flex-shrink-0 px-4 h-full flex items-center justify-center"
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/QwuQESNEb6w"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+          <embed
+            className="w-full flex-shrink-0 px-4 h-full flex items-center justify-center"
+            src="https://www.africau.edu/images/default/sample.pdf"
+            type="application/pdf"
+          />
 
-          <img className="w-full flex-shrink-0 px-4 h-full flex items-center justify-center" src="https://media.istockphoto.com/id/1421080285/photo/colored-books-on-light-background-education-school.jpg?b=1&s=170667a&w=0&k=20&c=_azu_R-5-a26wGlrtusK_CWPuYXa9vtPg4nREZQpQu0=" alt= "Image description" />
-          <iframe className="w-full flex-shrink-0 px-4 h-full flex items-center justify-center" width="560" height="315" src="https://www.youtube.com/embed/QwuQESNEb6w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-          <embed  className="w-full flex-shrink-0 px-4 h-full flex items-center justify-center" src="https://www.africau.edu/images/default/sample.pdf" type="application/pdf" />
-          
-          {/*<div className="w-full flex-shrink-0 h-full">
-            <CarGameActivity row={3} 
-                                 col={3} 
-                                 image={"https://media.istockphoto.com/id/1222528432/photo/car-small-cartoon-side.webp?b=1&s=170667a&w=0&k=20&c=HV06yu5flDeRvNFDtvkwP8wIXgr9kXHL-8H-x5bYEAI="}
-
-            />
-          </div>*/}
           <div className="w-full flex-shrink-0 h-full">
-            <CarGameActivityTwo row={5} 
-                                 col={5} 
-                                 image={RobotImg}
-
+            <CarGameActivityTwo
+              row={row}
+              col={col}
+              image={RobotImg}
+              carPosition={carPosition}
+              setCarPosition={setCarPosition}
+              endPosition={endPosition}
+              boxSize={14}
+              boxes={boxes}
+              setBoxes={setBoxes}
+              robotDirection={robotDirection}
+              setRobotDirection={setRobotDirection}
+              buttons={["left", "right", "top", "bottom"]}
+              batteryPosition={[
+                [1, 2],
+                [4, 3],
+              ]}
             />
           </div>
-          {/*<div className="w-full flex-shrink-0 h-full">
-            <CarGameActivityLayoutTwo row={5} 
-                                 col={5} 
-                                 image={"https://media.istockphoto.com/id/841268820/photo/german-classic-car.jpg?s=612x612&w=0&k=20&c=1d5X_L8pmYaNZYh-xycthWuA_f7j3KQPBfOqHHLjc4Y="}
 
-            />
-          </div>*/}
-
-          <div className="w-full flex-shrink-0 px-4 h-full flex items-center justify-center bg-gradient-to-r from-violet-300 to-fuchsia-500 " >
-          <QuizGame/>
+          <div className="w-full flex-shrink-0 px-4 h-full flex items-center justify-center bg-gradient-to-r from-violet-300 to-fuchsia-500 ">
+            <QuizGame />
           </div>
-
         </div>
       </div>
       <div className="flex justify-between mt-4">
