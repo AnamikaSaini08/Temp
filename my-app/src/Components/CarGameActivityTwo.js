@@ -18,7 +18,8 @@ function CarGameActivityTwo({
   setRobotDirection,
   buttons,
   batteryPosition,
-  setBatteryPosition
+  filterBatteryPosition,
+  setFilterBatteryPosition
 }) {
   const [rotateCarClockWise, setRotateCarClockWise] = useState(false);
   const [rotateCarAntiClockWise, setRotateCarAntiClockWise] = useState(false);
@@ -48,7 +49,7 @@ function CarGameActivityTwo({
                 rotateCarAntiClockWise={rotateCarAntiClockWise}
                 image={image}
                 endPosition={endPosition}
-                batteryPosition = {batteryPosition}
+                filterBatteryPosition = {filterBatteryPosition}
               />
             </div>
             <div className="bg-blue-950 ml-2 sm:ml-5 md:ml-7 w-1/2 overflow-y-auto  h-full">
@@ -68,7 +69,8 @@ function CarGameActivityTwo({
               handleRotateCarClockWise={handleRotateCarClockWise}
               handleRotateCarAntiClockWise={handleRotateCarAntiClockWise}
               batteryPosition = {batteryPosition}
-              setBatteryPosition = {setBatteryPosition}
+              filterBatteryPosition = {filterBatteryPosition}
+              setFilterBatteryPosition = {setFilterBatteryPosition}
             />
           </div>
         </div>

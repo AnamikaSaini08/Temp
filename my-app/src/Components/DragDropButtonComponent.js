@@ -15,9 +15,10 @@ function DragDropButtonComponent({
   handleRotateCarClockWise,
   handleRotateCarAntiClockWise,
   batteryPosition,
-  setBatteryPosition
+  filterBatteryPosition,
+  setFilterBatteryPosition
 }) {
-  //For G=Drag And Drop Connection
+  //For Drag And Drop Connection
   const [draggedButtonId, setDraggedButtonId] = useState(null);
 
   useEffect(() => {
@@ -29,6 +30,7 @@ function DragDropButtonComponent({
     setBoxes(new Array(boxSize).fill(null));
     setCarPosition({ x: 0, y: 0 });
     setRobotDirection(new Array(0));
+    setFilterBatteryPosition(batteryPosition);
   };
 
   //When CLick On Play Button
@@ -39,20 +41,20 @@ function DragDropButtonComponent({
 
     //When Traverse all BoxSize
     const interval = setInterval(() => {
-
-      console.log("PosX-" , pos.x);
-      console.log("PosY-" , pos.y);
       if (index >= boxSize) {
         clearInterval(interval);
         return;
       }
 
-      if (batteryPosition.some(coord => coord[0] === pos.x + 1 && coord[1] === pos.y + 1)){
+      //When Robot Reach on Battery Position
+      if (filterBatteryPosition.some(coord => coord[0] === pos.x + 1 && coord[1] === pos.y + 1)){
         alert("You Have Collect Battery");
-        const updatedBatteryPosition = batteryPosition.filter(coord => !(coord[0] === pos.x + 1 && coord[1] === pos.y + 1));
-        setBatteryPosition(updatedBatteryPosition);
+        const updatedBatteryPosition = filterBatteryPosition.filter(coord => !(coord[0] === pos.x + 1 && coord[1] === pos.y + 1));
+        setFilterBatteryPosition(updatedBatteryPosition);
       } 
-      if (pos.x === col - 1 && pos.y === row - 1) {
+
+      //Robot Final Destination
+      if (pos.x === col - 1 && pos.y === row - 1 && filterBatteryPosition.length === 0) {
         alert("You won the game");
         clearInterval(interval);
         eraseBoxes();
