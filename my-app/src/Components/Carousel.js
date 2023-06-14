@@ -16,6 +16,10 @@ const Carousel = () => {
     [4, 3],]);
   const [filterBatteryPosition , setFilterBatteryPosition] = useState([ [1, 5],
     [4, 3],]);
+  const [boxSize , setBoxSize] = useState(8);
+
+  const row2 =10;
+  const col2= 10;
 
   const nextSlide = () => {
     setCurrentSlide((currentSlide + 1) % slideLength);
@@ -61,7 +65,48 @@ const Carousel = () => {
               carPosition={carPosition}
               setCarPosition={setCarPosition}
               endPosition={endPosition}
-              boxSize={8}
+              boxSize={boxSize}
+              setBoxSize = {setBoxSize}
+              boxes={boxes}
+              setBoxes={setBoxes}
+              robotDirection={robotDirection}
+              setRobotDirection={setRobotDirection}
+              buttons={["left", "right", "top", "bottom"]}
+             
+            />
+          </div>
+          
+          <div className="w-full flex-shrink-0 h-full">
+            <CarGameActivityTwo
+              row={row}
+              col={col}
+              image={RobotImg}
+              carPosition={carPosition}
+              setCarPosition={setCarPosition}
+              endPosition={endPosition}
+              boxSize={boxSize}
+              setBoxSize = {setBoxSize}
+              boxes={boxes}
+              setBoxes={setBoxes}
+              robotDirection={robotDirection}
+              setRobotDirection={setRobotDirection}
+              buttons={["left", "right", "top", "bottom"]}
+              batteryPosition={batteryPosition}
+              filterBatteryPosition = {filterBatteryPosition}
+              setFilterBatteryPosition = {setFilterBatteryPosition}
+            />
+          </div>
+
+          <div className="w-full flex-shrink-0 h-full">
+            <CarGameActivityTwo
+              row={row2}
+              col={col2}
+              image={RobotImg}
+              carPosition={carPosition}
+              setCarPosition={setCarPosition}
+              endPosition={endPosition}
+              boxSize={boxSize}
+              setBoxSize = {setBoxSize}
               boxes={boxes}
               setBoxes={setBoxes}
               robotDirection={robotDirection}

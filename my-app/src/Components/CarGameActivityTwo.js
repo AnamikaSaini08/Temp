@@ -12,6 +12,7 @@ function CarGameActivityTwo({
   setCarPosition,
   endPosition,
   boxSize,
+  setBoxSize,
   boxes,
   setBoxes,
   robotDirection,
@@ -39,7 +40,7 @@ function CarGameActivityTwo({
         </div>
         <div className="w-full h-screen">
           <div className="w-full h-14 bg-blue-950"></div>
-          <div className="flex justify-around py-5 bg-blue-900 h-[50%] xl:h-[55%] ">
+          <div className={`flex justify-around bg-blue-900 ${row>8 ? 'py-0' : 'py-5'} h-[50%] xl:h-[55%] `}>
           <div className={`grid grid-cols-${col} gap-0`} >
               <GameMatrix
                 row={row}
@@ -56,7 +57,7 @@ function CarGameActivityTwo({
               <LogicOutput robotDirection={robotDirection} />
             </div>
           </div>
-          <div className="w-full sticky h-fit">
+          <div className="w-full sticky h-screen">
             <DragDropButtonComponent
               boxes={boxes}
               setRobotDirection={setRobotDirection}
@@ -64,6 +65,7 @@ function CarGameActivityTwo({
               row={row}
               col={col}
               boxSize={boxSize}
+              setBoxSize = {setBoxSize}
               setCarPosition={setCarPosition}
               buttons={buttons}
               handleRotateCarClockWise={handleRotateCarClockWise}

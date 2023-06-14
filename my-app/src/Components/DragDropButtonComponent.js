@@ -10,13 +10,14 @@ function DragDropButtonComponent({
   row,
   col,
   boxSize,
+  setBoxSize,
   setCarPosition,
   buttons,
   handleRotateCarClockWise,
   handleRotateCarAntiClockWise,
   batteryPosition,
   filterBatteryPosition,
-  setFilterBatteryPosition
+  setFilterBatteryPosition,
 }) {
   //For Drag And Drop Connection
   const [draggedButtonId, setDraggedButtonId] = useState(null);
@@ -30,62 +31,83 @@ function DragDropButtonComponent({
     setBoxes(new Array(boxSize).fill(null));
     setCarPosition({ x: 0, y: 0 });
     setRobotDirection(new Array(0));
-    setFilterBatteryPosition(batteryPosition);
+    if(setFilterBatteryPosition)
+     setFilterBatteryPosition(batteryPosition);
   };
+
+ async function fun(x,y)
+ {
+  await setFilterBatteryPosition((prevFilterBatteryPosition) =>
+          prevFilterBatteryPosition.filter(
+            (coord) => !(coord[0] === x && coord[1] === y)
+          )
+        );
+ }
 
   //When CLick On Play Button
   const changeCarPosition = () => {
     setRobotDirection([]);
     let pos = { x: 0, y: 0 };
     let index = 0;
-
-    //When Traverse all BoxSize
+    let count = filterBatteryPosition.length;
+  
+    // When Traverse all BoxSize
     const interval = setInterval(() => {
       if (index >= boxSize) {
         clearInterval(interval);
         return;
       }
-
-      //When Robot Reach on Battery Position
-      if (filterBatteryPosition.some(coord => coord[0] === pos.x + 1 && coord[1] === pos.y + 1)){
-        alert("You Have Collect Battery");
-        const updatedBatteryPosition = filterBatteryPosition.filter(coord => !(coord[0] === pos.x + 1 && coord[1] === pos.y + 1));
-        setFilterBatteryPosition(updatedBatteryPosition);
-      } 
-
-      //Robot Final Destination
-      if (pos.x === col - 1 && pos.y === row - 1 && filterBatteryPosition.length === 0) {
+  
+      // When Robot Reach on Battery Position
+      if (
+        filterBatteryPosition &&
+        filterBatteryPosition.some(
+          (coord) => coord[0] === pos.x + 1 && coord[1] === pos.y + 1
+        )
+      ) {
+        alert("You Have Collected a Battery");
+        fun(pos.x + 1 , pos.y + 1);
+        console.log(filterBatteryPosition);
+      }
+  
+      // Robot Final Destination
+      if (
+        pos.x === row - 1 &&
+        pos.y === col - 1 &&
+        (!filterBatteryPosition || filterBatteryPosition.length === 0)
+      ) {
         alert("You won the game");
         clearInterval(interval);
         eraseBoxes();
         return;
       }
+  
       const box = boxes[index];
       if (box === "left") {
         if (pos.x > 0) pos = { ...pos, x: pos.x - 1 };
         else {
-          alert("You Fail! Robot go out of boundary.");
+          alert("You Fail! Robot went out of boundary.");
           clearInterval(interval);
           return;
         }
       } else if (box === "right") {
-        if (pos.x < col) pos = { ...pos, x: pos.x + 1 };
+        if (pos.x < col - 1) pos = { ...pos, x: pos.x + 1 };
         else {
-          alert("You Fail! Robot go out of boundary.");
+          alert("You Fail! Robot went out of boundary.");
           clearInterval(interval);
           return;
         }
       } else if (box === "top") {
         if (pos.y > 0) pos = { ...pos, y: pos.y - 1 };
         else {
-          alert("You Fail! Robot go out of boundary.");
+          alert("You Fail! Robot went out of boundary.");
           clearInterval(interval);
           return;
         }
       } else if (box === "bottom") {
-        if (pos.y < row) pos = { ...pos, y: pos.y + 1 };
+        if (pos.y < col - 1) pos = { ...pos, y: pos.y + 1 };
         else {
-          alert("You Fail! Robot go out of boundary.");
+          alert("You Fail! Robot went out of boundary.");
           clearInterval(interval);
           return;
         }
@@ -94,6 +116,7 @@ function DragDropButtonComponent({
       } else if (box === "turn-left") {
         handleRotateCarAntiClockWise();
       }
+  
       index++;
       setCarPosition({ ...pos });
       if (box)
@@ -103,6 +126,7 @@ function DragDropButtonComponent({
         ]);
     }, 1000);
   };
+  
 
   //When we Drag Direction Button
   const handleDragStart = (buttonId) => {
@@ -138,8 +162,12 @@ function DragDropButtonComponent({
   return (
     <div className="w-full sticky">
       <div className="bg-blue-600 px-1 sm:px-6 sm:pb-3">
-        <div className="">
-          <h1 className=" text-white text-lg sm:py-2">Logic Panel</h1>
+        <div className="flex  sm:py-2">
+          <h1 className=" text-white text-lg">Logic Panel</h1>
+          <button className="ml-5 px-2 w-6 h-6 rounded-sm text-blue-600 text-bold text-xl flex justify-center bg-yellow-500"
+          onClick={()=>setBoxSize(boxSize+1)}>
+            +
+          </button>
         </div>
 
         <div className="flex flex-wrap">
