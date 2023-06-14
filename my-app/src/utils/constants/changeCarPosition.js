@@ -49,7 +49,7 @@ export const changeCarPosition = (
   setRobotDirection([]);
   let pos = { x: 0, y: 0 };
   let index = 0;
-  let count = filterBatteryPosition.length;
+  let count = filterBatteryPosition?.length;
   const batteryHealth = 5;
 
   // When Traverse all BoxSize
