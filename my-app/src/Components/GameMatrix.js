@@ -10,6 +10,7 @@ const GameMatrix = ({
   endPosition,
   filterBatteryPosition,
 }) => {
+  //console.log("In Matrix- ",filterBatteryPosition)
   return Array.from({ length: row }, (_, rowIndex) =>
     Array.from({ length: col }, (_, colIndex) => {
       if (colIndex === carPosition?.x && rowIndex === carPosition?.y) {

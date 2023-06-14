@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { setButtonText } from "../utils/constants/setButtonText";
 import Play from "../utils/images/Play.png";
 import Reset from "../utils/images/undo-arrow (1) 1.png";
@@ -18,9 +18,33 @@ function DragDropButtonComponent({
   batteryPosition,
   filterBatteryPosition,
   setFilterBatteryPosition,
+  carHealth,
+  setCarHealth
 }) {
+
+  //Note If anything depend upon previous state in setInterval then direct state update to ho jayega but bcz of closure setInterval purane vale par hi kaam krega so
+  // state should update based on previous state.
+
   //For Drag And Drop Connection
   const [draggedButtonId, setDraggedButtonId] = useState(null);
+  const [fillBoxes , setFillBoxes] = useState(0);
+  const [carInitialHealth , setCarInitialHealth ] = useState(0);
+  //Note- As setInterval() is callback() so in closure it takes initial value each time so kabhi bhi agr setInterval me 
+  //har itertaion me previous state updation ki need ho to  ref use kro because closure ki vjh se always initial state hi lega vo.
+  const carHealthRef = useRef(carHealth);
+  const filteredBatteryPosRef = useRef(filterBatteryPosition);
+
+  useEffect(() => {
+    carHealthRef.current = carHealth; // Update the value of carHealthRef whenever carHealth changes
+  }, [carHealth]);
+
+  useEffect( ()=>{
+    filteredBatteryPosRef.current = filterBatteryPosition; 
+  })
+
+  useEffect(()=>{
+    setCarInitialHealth(carHealth);
+  },[])
 
   useEffect(() => {
     setBoxes(new Array(boxSize).fill(null));
@@ -31,8 +55,10 @@ function DragDropButtonComponent({
     setBoxes(new Array(boxSize).fill(null));
     setCarPosition({ x: 0, y: 0 });
     setRobotDirection(new Array(0));
+    setCarHealth(carInitialHealth);
     if(setFilterBatteryPosition)
-     setFilterBatteryPosition(batteryPosition);
+       setFilterBatteryPosition(batteryPosition);
+    setFillBoxes(0);
   };
 
  async function fun(x,y)
@@ -46,14 +72,21 @@ function DragDropButtonComponent({
 
   //When CLick On Play Button
   const changeCarPosition = () => {
+    if(fillBoxes < boxSize){
+      alert("Please fill all the boxes");
+      return;
+    }
+
     setRobotDirection([]);
     let pos = { x: 0, y: 0 };
     let index = 0;
     let count = filterBatteryPosition.length;
+    const batteryHealth = 5;
   
     // When Traverse all BoxSize
     const interval = setInterval(() => {
-      if (index >= boxSize) {
+      if (index > boxSize) {
+        alert("You Fail!");
         clearInterval(interval);
         return;
       }
@@ -66,15 +99,16 @@ function DragDropButtonComponent({
         )
       ) {
         alert("You Have Collected a Battery");
-        fun(pos.x + 1 , pos.y + 1);
-        console.log(filterBatteryPosition);
+        setCarHealth(carHealthRef.current + batteryHealth);
+        fun(pos.x+1 , pos.y+1);
+        count--;
       }
   
       // Robot Final Destination
       if (
         pos.x === row - 1 &&
         pos.y === col - 1 &&
-        (!filterBatteryPosition || filterBatteryPosition.length === 0)
+        (count === 0)
       ) {
         alert("You won the game");
         clearInterval(interval);
@@ -119,6 +153,17 @@ function DragDropButtonComponent({
   
       index++;
       setCarPosition({ ...pos });
+      setCarHealth((prevHealth) => prevHealth - 1);
+      console.log("Health", carHealthRef.current);
+
+      // Rest of your logic
+
+      if (carHealthRef.current === 0) {
+        alert("Robot Died");
+        clearInterval(interval);
+        return;
+      }
+
       if (box)
         setRobotDirection((prevDirection) => [
           ...prevDirection,
@@ -143,6 +188,7 @@ function DragDropButtonComponent({
       updatedBoxes[index] = draggedButtonId;
       setBoxes(updatedBoxes);
       setDraggedButtonId(null);
+      setFillBoxes(fillBoxes+1);
     }
   };
 
@@ -167,6 +213,10 @@ function DragDropButtonComponent({
           <button className="ml-5 px-2 w-6 h-6 rounded-sm text-blue-600 text-bold text-xl flex justify-center bg-yellow-500"
           onClick={()=>setBoxSize(boxSize+1)}>
             +
+          </button>
+          <button className="ml-5 px-2 w-6 h-6 rounded-sm text-blue-600 text-bold text-xl flex justify-center bg-yellow-500"
+          onClick={()=>setBoxSize(boxSize-1)}>
+            -
           </button>
         </div>
 
