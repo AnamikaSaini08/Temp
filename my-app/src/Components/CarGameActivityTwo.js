@@ -29,6 +29,8 @@ function CarGameActivityTwo({
   const [rotateCarClockWise, setRotateCarClockWise] = useState(false);
   const [rotateCarAntiClockWise, setRotateCarAntiClockWise] = useState(false);
   const [showPopUp, setShowPopUp] = useState(false);
+  const [popUpStatus , setPopUpStatus] = useState("");
+  const [popUpDesc , setPopUpDesc] = useState("");
 
   const handleRotateCarClockWise = () => {
     setRotateCarClockWise(true);
@@ -63,8 +65,8 @@ function CarGameActivityTwo({
             { showPopUp && (
         <div className="fixed z-10 w-1/3 ">
           <GamePopUp
-            status="Fail"
-            desc="You Fail! Robot went out of boundary."
+            status={popUpStatus}
+            desc={popUpDesc}
             setShowPopUp={setShowPopUp}
           />
         </div>
@@ -94,6 +96,8 @@ function CarGameActivityTwo({
               carInitialHealth={carInitialHealth}
               showPopUp = {showPopUp}
               setShowPopUp = {setShowPopUp}
+              setPopUpStatus = {setPopUpStatus}
+              setPopUpDesc = {setPopUpDesc}
             />
           </div>
         </div>

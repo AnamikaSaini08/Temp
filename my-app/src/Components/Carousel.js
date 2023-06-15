@@ -17,7 +17,7 @@ const Carousel = () => {
     [4, 3],]);
   const [filterBatteryPosition , setFilterBatteryPosition] = useState([ [1, 5],
     [4, 3],]);
-  const [boxSize , setBoxSize] = useState(8);
+  const [boxSize , setBoxSize] = useState(12);
   const [carHealth , setCarHealth] = useState(5);
   const carInitialHealth = 5;
 

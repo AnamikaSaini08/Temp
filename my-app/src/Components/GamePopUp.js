@@ -6,8 +6,8 @@ const GamePopUp = ({status , desc , setShowPopUp}) => {
     <Zoom>
     <div  className='bg-blue-100 p-8'>
     <div>
-            <h1 className='text-4xl text-bold text-gray-800 flex justify-center pb-8'>{status}Hello</h1>
-            <p className='text-2xl text-gray-700'>{desc}You wrote 1 lines of code!</p>
+            <h1 className='text-4xl text-bold text-gray-800 flex justify-center pb-8'>{status}</h1>
+            <p className='text-2xl text-gray-700'>{desc}</p>
         </div>
         <div className='flex pt-8 justify-between text-white'>
             <button className='px-3 rounded-sm py-1 bg-blue-950' onClick={()=>setShowPopUp(false)}>Ok</button>

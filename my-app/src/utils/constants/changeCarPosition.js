@@ -1,5 +1,3 @@
-import GamePopUp from "../../Components/GamePopUp";
-
 async function fun(x, y, setFilterBatteryPosition) {
   await setFilterBatteryPosition((prevFilterBatteryPosition) =>
     prevFilterBatteryPosition.filter(
@@ -28,6 +26,18 @@ export const eraseBoxes = (
   setFillBoxes(0);
 };
 
+const showPopUpMsg = (setShowPopUp,setPopUpStatus,setPopUpDesc,interval,status , desc , battery)=>{
+  setShowPopUp(true);
+  battery && setTimeout(()=>{
+    setShowPopUp(false);
+  },1500)
+  setPopUpStatus(status);
+  setPopUpDesc(desc);
+  if(status === "Fail" || status === "Win"){
+    clearInterval(interval);
+  }   
+}
+
 export const changeCarPosition = (
   fillBoxes,
   boxSize,
@@ -43,11 +53,14 @@ export const changeCarPosition = (
   handleRotateCarClockWise,
   handleRotateCarAntiClockWise,
   carInitialHealth,
-  showPopUp,
-  setShowPopUp
+  setShowPopUp,
+  setPopUpStatus,
+  setPopUpDesc
 ) => {
   if (fillBoxes < boxSize) {
-    alert("Please fill all the boxes");
+    setPopUpDesc("Please Fill All Box First!")
+    setPopUpStatus("X")
+    setShowPopUp(true);
     return;
   }
 
@@ -73,7 +86,7 @@ export const changeCarPosition = (
         (coord) => coord[0] === pos.x + 1 && coord[1] === pos.y + 1
       )
     ) {
-      alert("You Have Collected a Battery");
+      showPopUpMsg(setShowPopUp,setPopUpStatus,setPopUpDesc,interval,"Hurrahhh!!!","You Have Collected a Battery!",true);
       setCarHealth(carHealthRef.current + batteryHealth);
       fun(pos.x + 1, pos.y + 1, setFilterBatteryPosition);
       count--;
@@ -81,9 +94,7 @@ export const changeCarPosition = (
 
     // Robot Final Destination
     if (pos.x === row - 1 && pos.y === col - 1 && count === 0) {
-      alert(`You won the game in ${boxSize} steps`);
-      clearInterval(interval);
-      //eraseBoxes();
+      showPopUpMsg(setShowPopUp,setPopUpStatus,setPopUpDesc,interval,"Win",`You won the game in ${boxSize} steps`);
       return;
     }
 
@@ -91,29 +102,25 @@ export const changeCarPosition = (
     if (box === "left") {
       if (pos.x > 0) pos = { ...pos, x: pos.x - 1 };
       else {
-        setShowPopUp(true);
-        clearInterval(interval);
+        showPopUpMsg(setShowPopUp,setPopUpStatus,setPopUpDesc,interval,"Fail","You Fail! Robot went out of boundary.");
         return;
       }
     } else if (box === "right") {
       if (pos.x < col - 1) pos = { ...pos, x: pos.x + 1 };
       else {
-         setShowPopUp(true);
-        clearInterval(interval);
+        showPopUpMsg(setShowPopUp,setPopUpStatus,setPopUpDesc,interval,"Fail","You Fail! Robot went out of boundary.");
         return;
       }
     } else if (box === "top") {
       if (pos.y > 0) pos = { ...pos, y: pos.y - 1 };
       else {
-         setShowPopUp(true);
-        clearInterval(interval);
+        showPopUpMsg(setShowPopUp,setPopUpStatus,setPopUpDesc,interval,"Fail","You Fail! Robot went out of boundary.");
         return;
       }
     } else if (box === "bottom") {
       if (pos.y < col - 1) pos = { ...pos, y: pos.y + 1 };
       else {
-         setShowPopUp(true);
-        clearInterval(interval);
+        showPopUpMsg(setShowPopUp,setPopUpStatus,setPopUpDesc,interval,"Fail","You Fail! Robot went out of boundary.");
         return;
       }
     } else if (box === "turn-right") {
@@ -124,8 +131,7 @@ export const changeCarPosition = (
 
     // Rest of your logic
     if (carHealthRef.current === 0) {
-      alert("Robot Died");
-      clearInterval(interval);
+      showPopUpMsg(setShowPopUp,setPopUpStatus,setPopUpDesc,interval,"Fail","Robot Died!")
       return;
     }
 
