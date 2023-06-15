@@ -14,6 +14,7 @@ function CarGameActivityTwo({
   endPosition,
   boxSize,
   setBoxSize,
+  initialBoxSize,
   boxes,
   setBoxes,
   robotDirection,
@@ -84,6 +85,7 @@ function CarGameActivityTwo({
               col={col}
               boxSize={boxSize}
               setBoxSize = {setBoxSize}
+              initialBoxSize = {initialBoxSize}
               setCarPosition={setCarPosition}
               buttons={buttons}
               handleRotateCarClockWise={handleRotateCarClockWise}
@@ -94,7 +96,6 @@ function CarGameActivityTwo({
               carHealth = {carHealth}
               setCarHealth = {setCarHealth}
               carInitialHealth={carInitialHealth}
-              showPopUp = {showPopUp}
               setShowPopUp = {setShowPopUp}
               setPopUpStatus = {setPopUpStatus}
               setPopUpDesc = {setPopUpDesc}

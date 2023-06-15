@@ -1,3 +1,5 @@
+let interval;
+
 async function fun(x, y, setFilterBatteryPosition) {
   await setFilterBatteryPosition((prevFilterBatteryPosition) =>
     prevFilterBatteryPosition.filter(
@@ -16,21 +18,25 @@ export const eraseBoxes = (
   batteryPosition,
   setFillBoxes,
   carInitialHealth,
-  boxSize
+  boxSize,
+  setBoxSize,
+  initialBoxSize
 ) => {
+  setBoxSize(initialBoxSize);
   setBoxes(new Array(boxSize).fill(null));
   setCarPosition({ x: 0, y: 0 });
   setRobotDirection(new Array(0));
   setCarHealth && setCarHealth(carInitialHealth);
   if (setFilterBatteryPosition) setFilterBatteryPosition(batteryPosition);
   setFillBoxes(0);
+  clearInterval(interval);
 };
 
 const showPopUpMsg = (setShowPopUp,setPopUpStatus,setPopUpDesc,interval,status , desc , battery)=>{
   setShowPopUp(true);
   battery && setTimeout(()=>{
     setShowPopUp(false);
-  },1500)
+  },2000)
   setPopUpStatus(status);
   setPopUpDesc(desc);
   if(status === "Fail" || status === "Win"){
@@ -72,7 +78,7 @@ export const changeCarPosition = (
   setCarHealth && setCarHealth(carInitialHealth);
 
   // When Traverse all BoxSize
-  const interval = setInterval(() => {
+    interval = setInterval(() => {
     if (index > boxSize) {
       alert("You Fail!");
       clearInterval(interval);
@@ -144,7 +150,7 @@ export const changeCarPosition = (
         ...prevDirection,
         `Robot Move ${box}`,
       ]);
-  }, 1000);
+  }, 1400);
 };
 
 

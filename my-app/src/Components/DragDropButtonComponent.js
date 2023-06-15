@@ -15,6 +15,7 @@ function DragDropButtonComponent({
   col,
   boxSize,
   setBoxSize,
+  initialBoxSize,
   setCarPosition,
   buttons,
   handleRotateCarClockWise,
@@ -24,8 +25,7 @@ function DragDropButtonComponent({
   setFilterBatteryPosition,
   carHealth,
   setCarHealth,
-  carInitialHealth,
-  showPopUp, 
+  carInitialHealth, 
   setShowPopUp,
   setPopUpStatus,
   setPopUpDesc
@@ -180,7 +180,9 @@ function DragDropButtonComponent({
               batteryPosition,
               setFillBoxes,
               carInitialHealth,
-              boxSize
+              boxSize,
+              setBoxSize,
+              initialBoxSize
             )
           }
         >

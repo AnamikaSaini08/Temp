@@ -89,6 +89,7 @@ const Carousel = () => {
               endPosition={endPosition}
               boxSize={boxSize}
               setBoxSize = {setBoxSize}
+              initialBoxSize = {12}
               boxes={boxes}
               setBoxes={setBoxes}
               robotDirection={robotDirection}
