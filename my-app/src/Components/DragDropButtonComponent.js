@@ -24,6 +24,7 @@ function DragDropButtonComponent({
   setFilterBatteryPosition,
   carHealth,
   setCarHealth,
+  carInitialHealth
 }) {
   //Note If anything depend upon previous state in setInterval then direct state update to ho jayega but bcz of closure setInterval purane vale par hi kaam krega so
   // state should update based on previous state.
@@ -31,24 +32,15 @@ function DragDropButtonComponent({
   //For Drag And Drop Connection
   const [draggedButtonId, setDraggedButtonId] = useState(null);
   const [fillBoxes, setFillBoxes] = useState(0);
-  const [carInitialHealth, setCarInitialHealth] = useState(0);
+
   //Note- As setInterval() is callback() so in closure it takes initial value each time so kabhi bhi agr setInterval me
   //har itertaion me previous state updation ki need ho to  ref use kro because closure ki vjh se always initial state hi lega vo.
+  
   const carHealthRef = useRef(carHealth);
-  const filteredBatteryPosRef = useRef(filterBatteryPosition);
-  const [prevFilledBoxes, setPrevFilledBoxes] = useState([]);
 
   useEffect(() => {
     carHealthRef.current = carHealth; // Update the value of carHealthRef whenever carHealth changes
   }, [carHealth]);
-
-  useEffect(() => {
-    filteredBatteryPosRef.current = filterBatteryPosition;
-  });
-
-  useEffect(() => {
-    setCarInitialHealth(carHealth);
-  }, []);
 
   useEffect(() => {
     setBoxes(new Array(boxSize).fill(null));
@@ -104,7 +96,6 @@ function DragDropButtonComponent({
       alert("First fill all boxes then only can increase!");
       return;
     } else {
-      setPrevFilledBoxes([...boxes]);
       setBoxes(boxes.concat(new Array(1).fill(null)));
       setBoxSize(boxSize+1);
     }
@@ -161,7 +152,8 @@ function DragDropButtonComponent({
               row,
               col,
               handleRotateCarClockWise,
-              handleRotateCarAntiClockWise
+              handleRotateCarAntiClockWise,
+              carInitialHealth
             )
           }
         >

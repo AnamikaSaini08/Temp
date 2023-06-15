@@ -21,7 +21,7 @@ export const eraseBoxes = (
   setBoxes(new Array(boxSize).fill(null));
   setCarPosition({ x: 0, y: 0 });
   setRobotDirection(new Array(0));
-  setCarHealth(carInitialHealth);
+  setCarHealth && setCarHealth(carInitialHealth);
   if (setFilterBatteryPosition) setFilterBatteryPosition(batteryPosition);
   setFillBoxes(0);
 };
@@ -39,7 +39,8 @@ export const changeCarPosition = (
   row,
   col,
   handleRotateCarClockWise,
-  handleRotateCarAntiClockWise
+  handleRotateCarAntiClockWise,
+  carInitialHealth
 ) => {
   if (fillBoxes < boxSize) {
     alert("Please fill all the boxes");
@@ -49,8 +50,9 @@ export const changeCarPosition = (
   setRobotDirection([]);
   let pos = { x: 0, y: 0 };
   let index = 0;
-  let count = filterBatteryPosition?.length;
+  let count = filterBatteryPosition ? filterBatteryPosition.length : 0;
   const batteryHealth = 5;
+  setCarHealth && setCarHealth(carInitialHealth);
 
   // When Traverse all BoxSize
   const interval = setInterval(() => {
@@ -75,7 +77,7 @@ export const changeCarPosition = (
 
     // Robot Final Destination
     if (pos.x === row - 1 && pos.y === col - 1 && count === 0) {
-      alert("You won the game");
+      alert(`You won the game in ${boxSize} steps`);
       clearInterval(interval);
       //eraseBoxes();
       return;
@@ -116,18 +118,16 @@ export const changeCarPosition = (
       handleRotateCarAntiClockWise();
     }
 
-    index++;
-    setCarPosition({ ...pos });
-    setCarHealth((prevHealth) => prevHealth - 1);
-    console.log("Health", carHealthRef.current);
-
     // Rest of your logic
-
     if (carHealthRef.current === 0) {
       alert("Robot Died");
       clearInterval(interval);
       return;
     }
+
+    index++;
+    setCarPosition({ ...pos });
+    setCarHealth && setCarHealth((prevHealth) => prevHealth - 1);
 
     if (box)
       setRobotDirection((prevDirection) => [
@@ -136,3 +136,7 @@ export const changeCarPosition = (
       ]);
   }, 1000);
 };
+
+
+//Note in setInterval, render ke liye state bnaye h but setInterval me previous value ko get krne ke liye
+//usi state ka ref variable bnaye h ar usko update krke uski value ko state variable me update kro to sync me dikhega sb.

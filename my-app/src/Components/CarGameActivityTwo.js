@@ -20,11 +20,13 @@ function CarGameActivityTwo({
   buttons,
   batteryPosition,
   filterBatteryPosition,
-  setFilterBatteryPosition
+  setFilterBatteryPosition,
+  carHealth,
+  setCarHealth,
+  carInitialHealth
 }) {
   const [rotateCarClockWise, setRotateCarClockWise] = useState(false);
   const [rotateCarAntiClockWise, setRotateCarAntiClockWise] = useState(false);
-  const [carHealth , setCarHealth] = useState(5);
 
   const handleRotateCarClockWise = () => {
     setRotateCarClockWise(true);
@@ -41,7 +43,7 @@ function CarGameActivityTwo({
         </div>
         <div className="w-full h-screen">
           <div className="w-full h-14 bg-blue-950">
-            <h1 className="text-bold text-white flex justify-end px-5 py-3 text-lg">Robot Health: {carHealth}</h1>
+            {carHealth && <h1 className="text-bold text-white flex justify-end px-5 py-3 text-lg">Robot Health: {carHealth}</h1>}
           </div>
           <div className={`flex justify-around bg-blue-900 ${row>8 ? 'py-0' : 'py-5'} h-[50%] xl:h-[55%] `}>
           <div className={`grid grid-cols-${col} gap-0`} >
@@ -78,6 +80,7 @@ function CarGameActivityTwo({
               setFilterBatteryPosition = {setFilterBatteryPosition}
               carHealth = {carHealth}
               setCarHealth = {setCarHealth}
+              carInitialHealth={carInitialHealth}
             />
           </div>
         </div>
