@@ -24,7 +24,9 @@ function DragDropButtonComponent({
   setFilterBatteryPosition,
   carHealth,
   setCarHealth,
-  carInitialHealth
+  carInitialHealth,
+  showPopUp, 
+  setShowPopUp
 }) {
   //Note If anything depend upon previous state in setInterval then direct state update to ho jayega but bcz of closure setInterval purane vale par hi kaam krega so
   // state should update based on previous state.
@@ -153,7 +155,9 @@ function DragDropButtonComponent({
               col,
               handleRotateCarClockWise,
               handleRotateCarAntiClockWise,
-              carInitialHealth
+              carInitialHealth,
+              showPopUp,
+              setShowPopUp
             )
           }
         >

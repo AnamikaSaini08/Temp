@@ -3,6 +3,7 @@ import GameInstructions from "./GameInstructions";
 import DragDropButtonComponent from "./DragDropButtonComponent";
 import GameMatrix from "./GameMatrix";
 import LogicOutput from "./LogicOutput";
+import GamePopUp from "./GamePopUp";
 
 function CarGameActivityTwo({
   row,
@@ -27,6 +28,7 @@ function CarGameActivityTwo({
 }) {
   const [rotateCarClockWise, setRotateCarClockWise] = useState(false);
   const [rotateCarAntiClockWise, setRotateCarAntiClockWise] = useState(false);
+  const [showPopUp, setShowPopUp] = useState(false);
 
   const handleRotateCarClockWise = () => {
     setRotateCarClockWise(true);
@@ -58,6 +60,15 @@ function CarGameActivityTwo({
                 filterBatteryPosition = {filterBatteryPosition}
               />
             </div>
+            { showPopUp && (
+        <div className="fixed z-10 w-1/3 ">
+          <GamePopUp
+            status="Fail"
+            desc="You Fail! Robot went out of boundary."
+            setShowPopUp={setShowPopUp}
+          />
+        </div>
+      )}
             <div className="bg-blue-950 ml-2 sm:ml-5 md:ml-7 w-1/2 overflow-y-auto  h-full">
               <LogicOutput robotDirection={robotDirection} />
             </div>
@@ -81,6 +92,8 @@ function CarGameActivityTwo({
               carHealth = {carHealth}
               setCarHealth = {setCarHealth}
               carInitialHealth={carInitialHealth}
+              showPopUp = {showPopUp}
+              setShowPopUp = {setShowPopUp}
             />
           </div>
         </div>

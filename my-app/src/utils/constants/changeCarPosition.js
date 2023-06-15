@@ -1,3 +1,5 @@
+import GamePopUp from "../../Components/GamePopUp";
+
 async function fun(x, y, setFilterBatteryPosition) {
   await setFilterBatteryPosition((prevFilterBatteryPosition) =>
     prevFilterBatteryPosition.filter(
@@ -40,7 +42,9 @@ export const changeCarPosition = (
   col,
   handleRotateCarClockWise,
   handleRotateCarAntiClockWise,
-  carInitialHealth
+  carInitialHealth,
+  showPopUp,
+  setShowPopUp
 ) => {
   if (fillBoxes < boxSize) {
     alert("Please fill all the boxes");
@@ -87,28 +91,28 @@ export const changeCarPosition = (
     if (box === "left") {
       if (pos.x > 0) pos = { ...pos, x: pos.x - 1 };
       else {
-        alert("You Fail! Robot went out of boundary.");
+        setShowPopUp(true);
         clearInterval(interval);
         return;
       }
     } else if (box === "right") {
       if (pos.x < col - 1) pos = { ...pos, x: pos.x + 1 };
       else {
-        alert("You Fail! Robot went out of boundary.");
+         setShowPopUp(true);
         clearInterval(interval);
         return;
       }
     } else if (box === "top") {
       if (pos.y > 0) pos = { ...pos, y: pos.y - 1 };
       else {
-        alert("You Fail! Robot went out of boundary.");
+         setShowPopUp(true);
         clearInterval(interval);
         return;
       }
     } else if (box === "bottom") {
       if (pos.y < col - 1) pos = { ...pos, y: pos.y + 1 };
       else {
-        alert("You Fail! Robot went out of boundary.");
+         setShowPopUp(true);
         clearInterval(interval);
         return;
       }

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import QuizGame from "./QuizGame";
 import CarGameActivityTwo from "./CarGameActivityTwo";
 import RobotImg from "../utils/images/robot.png";
+import GamePopUp from "./GamePopUp";
 
 const Carousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -78,7 +79,7 @@ const Carousel = () => {
             />
           </div>
           
-          <div className="w-full flex-shrink-0 h-full">
+          <div className="w-full flex-shrink-0 h-full overflow-y-scroll">
             <CarGameActivityTwo
               row={row}
               col={col}
@@ -103,24 +104,7 @@ const Carousel = () => {
           </div>
 
           <div className="w-full flex-shrink-0 h-full">
-            <CarGameActivityTwo
-              row={row2}
-              col={col2}
-              image={RobotImg}
-              carPosition={carPosition}
-              setCarPosition={setCarPosition}
-              endPosition={endPosition}
-              boxSize={boxSize}
-              setBoxSize = {setBoxSize}
-              boxes={boxes}
-              setBoxes={setBoxes}
-              robotDirection={robotDirection}
-              setRobotDirection={setRobotDirection}
-              buttons={["left", "right", "top", "bottom"]}
-              batteryPosition={batteryPosition}
-              filterBatteryPosition = {filterBatteryPosition}
-              setFilterBatteryPosition = {setFilterBatteryPosition}
-            />
+            <GamePopUp/>
           </div>
 
           <div className="w-full flex-shrink-0 px-4 h-full flex items-center justify-center bg-gradient-to-r from-violet-300 to-fuchsia-500 ">
