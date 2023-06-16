@@ -16,19 +16,17 @@ export const eraseBoxes = (
   setCarHealth,
   setFilterBatteryPosition,
   batteryPosition,
-  setFillBoxes,
   carInitialHealth,
   boxSize,
   setBoxSize,
   initialBoxSize
 ) => {
-  setBoxSize(initialBoxSize);
+ 
   setBoxes(new Array(boxSize).fill(null));
   setCarPosition({ x: 0, y: 0 });
   setRobotDirection(new Array(0));
   setCarHealth && setCarHealth(carInitialHealth);
-  if (setFilterBatteryPosition) setFilterBatteryPosition(batteryPosition);
-  setFillBoxes(0);
+  setFilterBatteryPosition && setFilterBatteryPosition(batteryPosition);
   clearInterval(interval);
 };
 
@@ -45,7 +43,6 @@ const showPopUpMsg = (setShowPopUp,setPopUpStatus,setPopUpDesc,interval,status ,
 }
 
 export const changeCarPosition = (
-  fillBoxes,
   boxSize,
   setRobotDirection,
   filterBatteryPosition,
@@ -63,16 +60,19 @@ export const changeCarPosition = (
   setPopUpStatus,
   setPopUpDesc
 ) => {
-  if (fillBoxes < boxSize) {
-    setPopUpDesc("Please Fill All Box First!")
-    setPopUpStatus("X")
-    setShowPopUp(true);
-    return;
+  for (let i=0 ; i<boxSize ; i++) {
+    if(!boxes[i]){
+      setPopUpDesc("Please Fill All Box First!")
+      setPopUpStatus("X")
+      setShowPopUp(true);
+      return;
+    }
   }
 
   setRobotDirection([]);
   let pos = { x: 0, y: 0 };
   let index = 0;
+  let robotSteps = 0;
   let count = filterBatteryPosition ? filterBatteryPosition.length : 0;
   const batteryHealth = 5;
   setCarHealth && setCarHealth(carInitialHealth);
@@ -80,11 +80,11 @@ export const changeCarPosition = (
   // When Traverse all BoxSize
     interval = setInterval(() => {
     if (index > boxSize) {
-      alert("You Fail!");
-      clearInterval(interval);
+      showPopUpMsg(setShowPopUp,setPopUpStatus,setPopUpDesc,interval,"Fail","You Fail!")
       return;
     }
 
+    robotSteps++;
     // When Robot Reach on Battery Position
     if (
       filterBatteryPosition &&
@@ -100,7 +100,7 @@ export const changeCarPosition = (
 
     // Robot Final Destination
     if (pos.x === row - 1 && pos.y === col - 1 && count === 0) {
-      showPopUpMsg(setShowPopUp,setPopUpStatus,setPopUpDesc,interval,"Win",`You won the game in ${boxSize} steps`);
+      showPopUpMsg(setShowPopUp,setPopUpStatus,setPopUpDesc,interval,"Win",`You won the game in ${robotSteps-1} steps`);
       return;
     }
 
@@ -150,7 +150,7 @@ export const changeCarPosition = (
         ...prevDirection,
         `Robot Move ${box}`,
       ]);
-  }, 1400);
+  }, 1000);
 };
 
 
