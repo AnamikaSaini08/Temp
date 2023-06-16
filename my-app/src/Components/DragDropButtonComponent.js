@@ -5,6 +5,7 @@ import Reset from "../utils/images/undo-arrow (1) 1.png";
 import {
   changeCarPosition,
   eraseBoxes,
+  checkEmptyBox
 } from "../utils/constants/changeCarPosition";
 
 function DragDropButtonComponent({
@@ -94,8 +95,20 @@ function DragDropButtonComponent({
   };
 
   const increaseBoxSize = () => {
-    setBoxes(boxes.concat(new Array(1).fill(null)));
-    setBoxSize(boxSize+1);
+    if(boxSize >= 20){
+      setShowPopUp(true);
+      setPopUpDesc("20 button is enough to win this game!");
+      setPopUpStatus("Can't Add Button");
+    }
+    else if(!checkEmptyBox(boxes,boxSize,setPopUpDesc,setPopUpStatus,setShowPopUp)){
+      setBoxes(boxes.concat(new Array(1).fill(null)));
+      setBoxSize(boxSize+1);
+    }else{
+      setShowPopUp(true);
+      setPopUpDesc("Please Fill All Box First!");
+      setPopUpStatus("X");
+      return;
+    }
   };
 
   return (
