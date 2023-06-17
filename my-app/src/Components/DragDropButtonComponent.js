@@ -5,7 +5,7 @@ import Reset from "../utils/images/undo-arrow (1) 1.png";
 import {
   changeCarPosition,
   eraseBoxes,
-  checkEmptyBox
+  checkEmptyBox,
 } from "../utils/constants/changeCarPosition";
 
 function DragDropButtonComponent({
@@ -26,10 +26,10 @@ function DragDropButtonComponent({
   setFilterBatteryPosition,
   carHealth,
   setCarHealth,
-  carInitialHealth, 
+  carInitialHealth,
   setShowPopUp,
   setPopUpStatus,
-  setPopUpDesc
+  setPopUpDesc,
 }) {
   //Note If anything depend upon previous state in setInterval then direct state update to ho jayega but bcz of closure setInterval purane vale par hi kaam krega so
   // state should update based on previous state.
@@ -39,7 +39,7 @@ function DragDropButtonComponent({
 
   //Note- As setInterval() is callback() so in closure it takes initial value each time so kabhi bhi agr setInterval me
   //har itertaion me previous state updation ki need ho to  ref use kro because closure ki vjh se always initial state hi lega vo.
-  
+
   const carHealthRef = useRef(carHealth);
 
   useEffect(() => {
@@ -95,15 +95,16 @@ function DragDropButtonComponent({
   };
 
   const increaseBoxSize = () => {
-    if(boxSize >= 20){
+    if (boxSize >= 20) {
       setShowPopUp(true);
       setPopUpDesc("20 button is enough to win this game!");
       setPopUpStatus("Can't Add Button");
-    }
-    else if(!checkEmptyBox(boxes,boxSize,setPopUpDesc,setPopUpStatus,setShowPopUp)){
+    } else if (
+      !checkEmptyBox(boxes, boxSize, setPopUpDesc, setPopUpStatus, setShowPopUp)
+    ) {
       setBoxes(boxes.concat(new Array(1).fill(null)));
-      setBoxSize(boxSize+1);
-    }else{
+      setBoxSize(boxSize + 1);
+    } else {
       setShowPopUp(true);
       setPopUpDesc("Please Fill All Box First!");
       setPopUpStatus("X");
@@ -115,9 +116,9 @@ function DragDropButtonComponent({
     <div className="w-full sticky">
       <div className="bg-blue-600 px-1 sm:px-6 sm:pb-3">
         <div className="flex  sm:py-2">
-          <h1 className=" text-white text-lg">Logic Panel</h1>
+          <h1 className=" text-white text-lg 2xl:text-4xl">Logic Panel</h1>
           <button
-            className="ml-5 px-2 w-6 h-6 rounded-sm text-blue-600 text-bold text-xl flex justify-center bg-yellow-500"
+            className="ml-5 px-2 w-6 h-6 rounded-sm text-blue-600 text-bold text-xl flex justify-center bg-yellow-500 "
             onClick={() => {
               increaseBoxSize();
             }}
@@ -132,7 +133,7 @@ function DragDropButtonComponent({
                 updatedBoxes.pop(); // Remove the last element
                 return updatedBoxes;
               });
-              setBoxSize(boxSize-1);
+              setBoxSize(boxSize - 1);
             }}
           >
             -
@@ -186,7 +187,7 @@ function DragDropButtonComponent({
               carInitialHealth,
               boxSize,
               setBoxSize,
-              initialBoxSize,
+              initialBoxSize
             )
           }
         >

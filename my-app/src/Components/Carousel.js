@@ -1,34 +1,43 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import QuizGame from "./QuizGame";
 import CarGameActivityTwo from "./CarGameActivityTwo";
 import RobotImg from "../utils/images/robot.png";
-import GamePopUp from "./GamePopUp";
 
 const Carousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+    //1st Activity
   const [carPosition, setCarPosition] = useState({ x: 0, y: 0 });
   const [boxes, setBoxes] = useState([]);
   const [robotDirection, setRobotDirection] = useState([]);
-  const row = 5;
-  const col = 5;
-  const endPosition = { x: row, y: col };
+  const endPosition = { x: 5, y: 5 };
   const slideLength = 7;
-  const [batteryPosition, setBatteryPosition] = useState([ [1, 5],
-    [4, 3],]);
-  const [filterBatteryPosition , setFilterBatteryPosition] = useState([ [1, 5],
-    [4, 3],]);
-  const [boxSize , setBoxSize] = useState(12);
-  const [carHealth , setCarHealth] = useState(5);
-  const carInitialHealth = 5;
+  const [boxSize, setBoxSize] = useState(12);
 
-  const row2 =10;
-  const col2= 10;
+  //2nd Activity
+    const [carPosition2, setCarPosition2] = useState({ x: 0, y: 0 });
+  const [boxes2, setBoxes2] = useState([]);
+  const [robotDirection2, setRobotDirection2] = useState([]);
+  const endPosition2 = { x: 7, y: 7};
+  const [batteryPosition2, setBatteryPosition2] = useState([
+    [1, 5],
+    [4, 3],
+  ]);
+  const [filterBatteryPosition2, setFilterBatteryPosition2] = useState([
+    [1, 5],
+    [4, 3],
+  ]);
+  const [boxSize2, setBoxSize2] = useState(12);
+  const [carHealth2, setCarHealth2] = useState(5);
+  const carInitialHealth2 = 5;
+  const [carouselFlag, setCarouselFlag] = useState(true);
 
   const nextSlide = () => {
+    setCarouselFlag(!carouselFlag);
     setCurrentSlide((currentSlide + 1) % slideLength);
   };
 
   const previousSlide = () => {
+    setCarouselFlag(!carouselFlag);
     setCurrentSlide((currentSlide - 1 + slideLength) % slideLength);
   };
 
@@ -60,53 +69,48 @@ const Carousel = () => {
             type="application/pdf"
           />
 
-          <div className="w-full flex-shrink-0 h-full">
+          {<div className="w-full flex-shrink-0 h-full">
             <CarGameActivityTwo
-              row={row}
-              col={col}
+              row={8}
+              col={8}
               image={RobotImg}
               carPosition={carPosition}
               setCarPosition={setCarPosition}
               endPosition={endPosition}
               boxSize={boxSize}
-              setBoxSize = {setBoxSize}
+              setBoxSize={setBoxSize}
               boxes={boxes}
               setBoxes={setBoxes}
               robotDirection={robotDirection}
               setRobotDirection={setRobotDirection}
               buttons={["left", "right", "top", "bottom"]}
-             
             />
-          </div>
-          
-          <div className="w-full flex-shrink-0 h-full overflow-y-scroll">
-            <CarGameActivityTwo
-              row={row}
-              col={col}
-              image={RobotImg}
-              carPosition={carPosition}
-              setCarPosition={setCarPosition}
-              endPosition={endPosition}
-              boxSize={boxSize}
-              setBoxSize = {setBoxSize}
-              initialBoxSize = {12}
-              boxes={boxes}
-              setBoxes={setBoxes}
-              robotDirection={robotDirection}
-              setRobotDirection={setRobotDirection}
-              buttons={["left", "right", "top", "bottom"]}
-              batteryPosition={batteryPosition}
-              filterBatteryPosition = {filterBatteryPosition}
-              setFilterBatteryPosition = {setFilterBatteryPosition}
-              carHealth={carHealth}
-              setCarHealth={setCarHealth}
-              carInitialHealth ={carInitialHealth}
-            />
-          </div>
+          </div>}
 
-          <div className="w-full flex-shrink-0 h-full">
-            <GamePopUp/>
-          </div>
+          { <div className="w-full flex-shrink-0 h-full">
+            <CarGameActivityTwo
+              row={5}
+              col={5}
+              image={RobotImg}
+              carPosition={carPosition2}
+              setCarPosition={setCarPosition2}
+              endPosition={endPosition2}
+              boxSize={boxSize2}
+              setBoxSize={setBoxSize2}
+              initialBoxSize={12}
+              boxes={boxes2}
+              setBoxes={setBoxes2}
+              robotDirection={robotDirection2}
+              setRobotDirection={setRobotDirection2}
+              buttons={["left", "right", "top", "bottom"]}
+              batteryPosition={batteryPosition2}
+              filterBatteryPosition={filterBatteryPosition2}
+              setFilterBatteryPosition={setFilterBatteryPosition2}
+              carHealth={carHealth2}
+              setCarHealth={setCarHealth2}
+              carInitialHealth={carInitialHealth2}
+            />
+          </div>}
 
           <div className="w-full flex-shrink-0 px-4 h-full flex items-center justify-center bg-gradient-to-r from-violet-300 to-fuchsia-500 ">
             <QuizGame />

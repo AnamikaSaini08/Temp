@@ -47,11 +47,11 @@ function CarGameActivityTwo({
           <GameInstructions />
         </div>
         <div className="w-full h-screen">
-          <div className="w-full h-14 bg-blue-950">
+          <div className="w-full h-14  bg-blue-950">
             {carHealth && <h1 className="text-bold text-white flex justify-end px-5 py-3 text-lg">Robot Health: {carHealth}</h1>}
           </div>
-          <div className={`flex justify-around bg-blue-900 ${row>8 ? 'py-0' : 'py-5'} h-[50%] xl:h-[55%] `}>
-          <div className={`grid grid-cols-${col} gap-0`} >
+          <div className={`flex justify-around text-center bg-blue-900 ${row>8 ? 'py-0' : 'py-5'} h-[57%] sm:h-[50%] xl:h-[60%] 2xl:h-[63%]`}>
+          <div className={`grid grid-cols-${col} gap-0 mx-auto my-auto`} >
               <GameMatrix
                 row={row}
                 col={col}
@@ -72,7 +72,7 @@ function CarGameActivityTwo({
           />
         </div>
       )}
-            <div className="bg-blue-950 ml-2 sm:ml-5 md:ml-7 w-1/2 overflow-y-auto  h-full">
+            <div className="bg-blue-950 ml-2 sm:ml-5 md:ml-7 w-1/2 overflow-y-auto mx-auto my-auto h-3/4">
               <LogicOutput robotDirection={robotDirection} />
             </div>
           </div>
