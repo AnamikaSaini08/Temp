@@ -3,7 +3,7 @@ import React from 'react'
 const GameInstructions = () => {
   return (
     <div className=' text-white to-fuchsia-300 sm:h-screen'>
-     <div className='bg-gray-300 h-14'> 
+     <div className='bg-gray-300 h-14 2xl:h-28'> 
               
       </div>
       <ol style={{ listStyleType: 'decimal' }} className="space-y-2 sm:px-5 sm:py-4 leading-5 sm:leading-6 bg-gray-100 text-black text-md">

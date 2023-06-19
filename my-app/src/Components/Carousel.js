@@ -1,43 +1,194 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import QuizGame from "./QuizGame";
 import CarGameActivityTwo from "./CarGameActivityTwo";
 import RobotImg from "../utils/images/robot.png";
 
 const Carousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-    //1st Activity
-  const [carPosition, setCarPosition] = useState({ x: 0, y: 0 });
-  const [boxes, setBoxes] = useState([]);
-  const [robotDirection, setRobotDirection] = useState([]);
-  const endPosition = { x: 5, y: 5 };
-  const slideLength = 7;
-  const [boxSize, setBoxSize] = useState(12);
+  const slideLength = 15;
 
-  //2nd Activity
-    const [carPosition2, setCarPosition2] = useState({ x: 0, y: 0 });
-  const [boxes2, setBoxes2] = useState([]);
-  const [robotDirection2, setRobotDirection2] = useState([]);
-  const endPosition2 = { x: 7, y: 7};
-  const [batteryPosition2, setBatteryPosition2] = useState([
-    [1, 5],
-    [4, 3],
-  ]);
-  const [filterBatteryPosition2, setFilterBatteryPosition2] = useState([
-    [1, 5],
-    [4, 3],
-  ]);
-  const [boxSize2, setBoxSize2] = useState(12);
-  const [carHealth2, setCarHealth2] = useState(5);
-  const carInitialHealth2 = 5;
-  const [carouselFlag, setCarouselFlag] = useState(true);
+  const carGames = [
+    {
+      row: 5,
+      col: 5,
+      carPosition: useState({ x: 0, y: 0 }),
+      boxes: useState([]),
+      robotDirection: useState([]),
+      endPosition: { x: 2, y: 1 },
+      boxSize: useState(12),
+    },
+    {
+      row: 5,
+      col: 5,
+      carPosition: useState({ x: 0, y: 0 }),
+      boxes: useState([]),
+      robotDirection: useState([]),
+      endPosition: { x: 4, y: 1 },
+      boxSize: useState(12),
+    },
+    {
+      row: 5,
+      col: 5,
+      carPosition: useState({ x: 0, y: 0 }),
+      boxes: useState([]),
+      robotDirection: useState([]),
+      endPosition: { x: 5, y: 5 },
+      boxSize: useState(12),
+    },
+    {
+      row: 5,
+      col: 5,
+      carPosition: useState({ x: 0, y: 0 }),
+      boxes: useState([]),
+      robotDirection: useState([]),
+      endPosition: { x: 5, y: 5 },
+      batteryPosition: useState([[3, 1]]),
+      filterBatteryPosition: useState([[3, 1]]),
+      boxSize: useState(12),
+      carHealth: useState(10),
+      carInitialHealth: 10,
+    },
+    {
+      row: 5,
+      col: 5,
+      carPosition: useState({ x: 0, y: 0 }),
+      boxes: useState([]),
+      robotDirection: useState([]),
+      endPosition: { x: 5, y: 5 },
+      batteryPosition: useState([[3, 4]]),
+      filterBatteryPosition: useState([[3, 4]]),
+      boxSize: useState(12),
+      carHealth: useState(10),
+      carInitialHealth: 10,
+    },
+    {
+      row: 5,
+      col: 5,
+      carPosition: useState({ x: 0, y: 0 }),
+      boxes: useState([]),
+      robotDirection: useState([]),
+      endPosition: { x: 5, y: 5 },
+      batteryPosition: useState([[1, 3],[1,4]]),
+      filterBatteryPosition: useState([[1, 4],[3,4]]),
+      boxSize: useState(12),
+      carHealth: useState(10),
+      carInitialHealth: 10,
+    },
+    {
+      row: 5,
+      col: 5,
+      carPosition: useState({ x: 0, y: 0 }),
+      boxes: useState([]),
+      robotDirection: useState([]),
+      endPosition: { x: 5, y: 5 },
+      batteryPosition: useState([[1, 3],[1,4]]),
+      filterBatteryPosition: useState([[1, 3],[1,4]]),
+      boxSize: useState(12),
+      carHealth: useState(10),
+      carInitialHealth: 10,
+    },
+    {
+      row: 5,
+      col: 5,
+      carPosition: useState({ x: 0, y: 0 }),
+      boxes: useState([]),
+      robotDirection: useState([]),
+      endPosition: { x: 5, y: 5 },
+      batteryPosition: useState([[3,2],[1, 3],[1,4]]),
+      filterBatteryPosition: useState([[3,2],[1, 4],[3,4]]),
+      boxSize: useState(12),
+      carHealth: useState(10),
+      carInitialHealth: 10,
+    },
+    {
+      row: 5,
+      col: 5,
+      carPosition: useState({ x: 0, y: 0 }),
+      boxes: useState([]),
+      robotDirection: useState([]),
+      endPosition: { x: 5, y: 5 },
+      batteryPosition: useState([[1,4],[3,4]]),
+      filterBatteryPosition: useState([[1,4],[3,4]]),
+      boxSize: useState(12),
+      carHealth: useState(10),
+      carInitialHealth: 10,
+      obstaclePosition : [[2,1],[2,2],[2,3],[2,4]]
+    },
+    {
+      row: 5,
+      col: 5,
+      carPosition: useState({ x: 0, y: 0 }),
+      boxes: useState([]),
+      robotDirection: useState([]),
+      endPosition: { x: 5, y: 5 },
+      batteryPosition: useState([[5,3],[4,5]]),
+      filterBatteryPosition: useState([[5,3],[4,5]]),
+      boxSize: useState(12),
+      carHealth: useState(10),
+      carInitialHealth: 10,
+      obstaclePosition : [[2,1],[2,2],[4,3],[4,4]]
+    },
+    {
+      row: 5,
+      col: 5,
+      carPosition: useState({ x: 0, y: 0 }),
+      boxes: useState([]),
+      robotDirection: useState([]),
+      endPosition: { x: 5, y: 5 },
+      batteryPosition: useState([[1,4],[3,4]]),
+      filterBatteryPosition: useState([[1,4],[3,4]]),
+      boxSize: useState(12),
+      carHealth: useState(10),
+      carInitialHealth: 10,
+      obstaclePosition : [[2,1],[2,2],[4,3],[4,4]]
+    },
+    {
+      row: 5,
+      col: 5,
+      carPosition: useState({ x: 0, y: 0 }),
+      boxes: useState([]),
+      robotDirection: useState([]),
+      endPosition: { x: 5, y: 5 },
+      batteryPosition: useState([[2,2],[3,3],[4,4]]),
+      filterBatteryPosition: useState([[2,2],[3,3],[4,4]]),
+      boxSize: useState(12),
+      carHealth: useState(10),
+      carInitialHealth: 10,
+    },
+    {
+      row: 6,
+      col: 6,
+      carPosition: useState({ x: 0, y: 0 }),
+      boxes: useState([]),
+      robotDirection: useState([]),
+      endPosition: { x: 6, y: 6 },
+      batteryPosition: useState([[2,2],[3,3],[4,4],[5,5]]),
+      filterBatteryPosition: useState([[2,2],[3,3],[4,4],[5,5]]),
+      boxSize: useState(12),
+      carHealth: useState(10),
+      carInitialHealth: 10,
+    },
+     {
+      row: 8,
+      col: 8,
+      carPosition: useState({ x: 0, y: 0 }),
+      boxes: useState([]),
+      robotDirection: useState([]),
+      endPosition: { x: 8, y: 8 },
+      batteryPosition: useState([[1,3],[3,3],[5,5],[3,5],[5,7],[7,7]]),
+      filterBatteryPosition: useState([[1,3],[3,3],[5,5],[3,5],[5,7],[7,7]]),
+      boxSize: useState(12),
+      carHealth: useState(10),
+      carInitialHealth: 10,
+    },
+    
+  ];
 
   const nextSlide = () => {
-    setCarouselFlag(!carouselFlag);
     setCurrentSlide((currentSlide + 1) % slideLength);
   };
 
   const previousSlide = () => {
-    setCarouselFlag(!carouselFlag);
     setCurrentSlide((currentSlide - 1 + slideLength) % slideLength);
   };
 
@@ -48,70 +199,33 @@ const Carousel = () => {
           className="flex transition-transform duration-300 h-full"
           style={{ transform: `translateX(-${currentSlide * 100}%)` }}
         >
-          <img
-            className="w-full flex-shrink-0 px-4 h-full flex items-center justify-center"
-            src="https://media.istockphoto.com/id/1421080285/photo/colored-books-on-light-background-education-school.jpg?b=1&s=170667a&w=0&k=20&c=_azu_R-5-a26wGlrtusK_CWPuYXa9vtPg4nREZQpQu0="
-            alt="Image description"
-          />
-          <iframe
-            className="w-full flex-shrink-0 px-4 h-full flex items-center justify-center"
-            width="560"
-            height="315"
-            src="https://www.youtube.com/embed/QwuQESNEb6w"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-          ></iframe>
-          <embed
-            className="w-full flex-shrink-0 px-4 h-full flex items-center justify-center"
-            src="https://www.africau.edu/images/default/sample.pdf"
-            type="application/pdf"
-          />
-
-          {<div className="w-full flex-shrink-0 h-full">
-            <CarGameActivityTwo
-              row={8}
-              col={8}
-              image={RobotImg}
-              carPosition={carPosition}
-              setCarPosition={setCarPosition}
-              endPosition={endPosition}
-              boxSize={boxSize}
-              setBoxSize={setBoxSize}
-              boxes={boxes}
-              setBoxes={setBoxes}
-              robotDirection={robotDirection}
-              setRobotDirection={setRobotDirection}
-              buttons={["left", "right", "top", "bottom"]}
-            />
-          </div>}
-
-          { <div className="w-full flex-shrink-0 h-full">
-            <CarGameActivityTwo
-              row={5}
-              col={5}
-              image={RobotImg}
-              carPosition={carPosition2}
-              setCarPosition={setCarPosition2}
-              endPosition={endPosition2}
-              boxSize={boxSize2}
-              setBoxSize={setBoxSize2}
-              initialBoxSize={12}
-              boxes={boxes2}
-              setBoxes={setBoxes2}
-              robotDirection={robotDirection2}
-              setRobotDirection={setRobotDirection2}
-              buttons={["left", "right", "top", "bottom"]}
-              batteryPosition={batteryPosition2}
-              filterBatteryPosition={filterBatteryPosition2}
-              setFilterBatteryPosition={setFilterBatteryPosition2}
-              carHealth={carHealth2}
-              setCarHealth={setCarHealth2}
-              carInitialHealth={carInitialHealth2}
-            />
-          </div>}
-
+          {carGames.map((game, index) => (
+            <div key={index} className="w-full flex-shrink-0 h-full">
+              <CarGameActivityTwo
+                row={game.row}
+                col={game.col}
+                image={RobotImg}
+                carPosition={game.carPosition[0]}
+                setCarPosition={game.carPosition[1]}
+                endPosition={game.endPosition}
+                boxSize={game.boxSize[0]}
+                setBoxSize={game.boxSize[1]}
+                boxes={game.boxes[0]}
+                setBoxes={game.boxes[1]}
+                robotDirection={game.robotDirection[0]}
+                setRobotDirection={game.robotDirection[1]}
+                buttons={["left", "right", "top", "bottom"]}
+                batteryPosition={game.batteryPosition && game.batteryPosition[0]}
+                filterBatteryPosition={game.filterBatteryPosition && game.filterBatteryPosition[0]}
+                setFilterBatteryPosition={game.filterBatteryPosition && game.filterBatteryPosition[1]}
+                carHealth={game.carHealth && game.carHealth[0]}
+                setCarHealth={game.carHealth && game.carHealth[1]}
+                carInitialHealth={game.carInitialHealth}
+                obstaclePosition={game.obstaclePosition}
+              />
+            </div>
+          ))}
+          
           <div className="w-full flex-shrink-0 px-4 h-full flex items-center justify-center bg-gradient-to-r from-violet-300 to-fuchsia-500 ">
             <QuizGame />
           </div>

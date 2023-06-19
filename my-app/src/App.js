@@ -8,15 +8,8 @@ import store from './utils/store';
   const appRouter = createBrowserRouter([
     {
       path:'/',
-      element: <>
-        <Login/>
-        <Register/>
-      </>
-    },
-    {
-      path:'/home',
       element:<Home/>
-    }
+    },
   ]);
 
   const App = ()=>(

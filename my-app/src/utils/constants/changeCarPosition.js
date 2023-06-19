@@ -21,6 +21,7 @@ export const eraseBoxes = (
   setBoxSize,
   initialBoxSize
 ) => {
+  console.log("batteryPosition ",batteryPosition)
   setBoxes(new Array(boxSize).fill(null));
   setCarPosition({ x: 0, y: 0 });
   setRobotDirection(new Array(0));
