@@ -14,15 +14,18 @@ const GameMatrix = ({
 }) => {
   return Array.from({ length: row }, (_, rowIndex) =>
     Array.from({ length: col }, (_, colIndex) => {
+      const adjustedRowIndex = rowIndex + 1;
+      const adjustedColIndex = colIndex + 1;
+      
       const rowGreaterFive = row > 5 || col > 5;
       const rowGraterSeven = row > 7 || col > 7;
       const gridBlockSize = rowGreaterFive ? ( rowGraterSeven ? ('h-6 w-6 sm:h-7 sm:w-7 xl:h-10 xl:w-10 2xl:h-24 2xl:w-24') : ('h-7 w-7 sm:h-7 sm:w-7 xl:h-12 xl:w-12 2xl:h-28 2xl:w-28')): ('h-12 w-12 xl:h-16 xl:w-16 2xl:h-32 2xl:w-32');
   
-      if (colIndex === carPosition?.x && rowIndex === carPosition?.y) {
+      if (adjustedColIndex === carPosition?.x && adjustedRowIndex === carPosition?.y) {
         return (
           <div
-            key={`${rowIndex}-${colIndex}`}
-            className={`border border-gray-600 ${gridBlockSize} p-0 m-0`}
+            key={`${adjustedRowIndex}-${adjustedColIndex}`}
+            className={`border border-gray-600 bg-yellow-400 ${gridBlockSize} p-0 m-0`}
           >
             <img
               className={`h-full w-full object-cover ${
@@ -37,25 +40,25 @@ const GameMatrix = ({
             />
           </div>
         );
-      }else if (
-        colIndex === endPosition.x - 1 &&
-        rowIndex === endPosition.y - 1
+      } else if (
+        adjustedColIndex === endPosition.x &&
+        adjustedRowIndex === endPosition.y
       ) {
         return (
           <div
-            key={`${rowIndex}-${colIndex}`}
+            key={`${adjustedRowIndex}-${adjustedColIndex}`}
             className={`border border-gray-600 bg-red-500 ${gridBlockSize} p-0 m-0`}
           ></div>
         );
-      }else if (
+      } else if (
         filterBatteryPosition &&
         filterBatteryPosition.some(
-          (coord) => coord[0] === colIndex + 1 && coord[1] === rowIndex + 1
+          (coord) => coord[0] === adjustedColIndex && coord[1] === adjustedRowIndex
         )
       ) {
         return (
           <div
-            key={`${rowIndex}-${colIndex}`}
+            key={`${adjustedRowIndex}-${adjustedColIndex}`}
             className={`border border-gray-600 ${gridBlockSize} p-0 m-0`}
           >
             <img
@@ -65,12 +68,12 @@ const GameMatrix = ({
             />
           </div>
         );
-      }else if(obstaclePosition &&  obstaclePosition.some(
-        (coord) => coord[0] === colIndex + 1 && coord[1] === rowIndex + 1
-      )){
+      } else if (obstaclePosition && obstaclePosition.some(
+        (coord) => coord[0] === adjustedColIndex && coord[1] === adjustedRowIndex
+      )) {
         return (
           <div
-            key={`${rowIndex}-${colIndex}`}
+            key={`${adjustedRowIndex}-${adjustedColIndex}`}
             className={`border border-gray-600 bg-yellow-400 ${gridBlockSize} p-0 m-0`}
           >
             <img
@@ -80,10 +83,10 @@ const GameMatrix = ({
             />
           </div>
         );
-      } else{
+      } else {
         return (
           <div
-            key={`${rowIndex}-${colIndex}`}
+            key={`${adjustedRowIndex}-${adjustedColIndex}`}
             className={`border border-gray-600 bg-yellow-400 ${gridBlockSize} p-0 m-0`}
           ></div>
         );

@@ -101,6 +101,8 @@ function CarGameActivityTwo({
               setShowPopUp = {setShowPopUp}
               setPopUpStatus = {setPopUpStatus}
               setPopUpDesc = {setPopUpDesc}
+              obstaclePosition ={obstaclePosition}
+              endPosition = {endPosition}
             />
           </div>
         </div>

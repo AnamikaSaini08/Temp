@@ -11,7 +11,7 @@ const Carousel = () => {
     {
       row: 5,
       col: 5,
-      carPosition: useState({ x: 0, y: 0 }),
+      carPosition: useState({ x: 1, y: 1 }),
       boxes: useState([]),
       robotDirection: useState([]),
       endPosition: { x: 2, y: 1 },
@@ -20,7 +20,7 @@ const Carousel = () => {
     {
       row: 5,
       col: 5,
-      carPosition: useState({ x: 0, y: 0 }),
+      carPosition: useState({ x: 1, y: 1 }),
       boxes: useState([]),
       robotDirection: useState([]),
       endPosition: { x: 4, y: 1 },
@@ -29,7 +29,7 @@ const Carousel = () => {
     {
       row: 5,
       col: 5,
-      carPosition: useState({ x: 0, y: 0 }),
+      carPosition: useState({ x: 1, y: 1 }),
       boxes: useState([]),
       robotDirection: useState([]),
       endPosition: { x: 5, y: 5 },
@@ -38,7 +38,7 @@ const Carousel = () => {
     {
       row: 5,
       col: 5,
-      carPosition: useState({ x: 0, y: 0 }),
+      carPosition: useState({ x: 1, y: 1 }),
       boxes: useState([]),
       robotDirection: useState([]),
       endPosition: { x: 5, y: 5 },
@@ -51,7 +51,7 @@ const Carousel = () => {
     {
       row: 5,
       col: 5,
-      carPosition: useState({ x: 0, y: 0 }),
+      carPosition: useState({ x: 1, y: 1 }),
       boxes: useState([]),
       robotDirection: useState([]),
       endPosition: { x: 5, y: 5 },
@@ -64,7 +64,7 @@ const Carousel = () => {
     {
       row: 5,
       col: 5,
-      carPosition: useState({ x: 0, y: 0 }),
+      carPosition: useState({ x: 1, y: 1 }),
       boxes: useState([]),
       robotDirection: useState([]),
       endPosition: { x: 5, y: 5 },
@@ -77,7 +77,7 @@ const Carousel = () => {
     {
       row: 5,
       col: 5,
-      carPosition: useState({ x: 0, y: 0 }),
+      carPosition: useState({ x: 1, y: 1 }),
       boxes: useState([]),
       robotDirection: useState([]),
       endPosition: { x: 5, y: 5 },
@@ -90,7 +90,7 @@ const Carousel = () => {
     {
       row: 5,
       col: 5,
-      carPosition: useState({ x: 0, y: 0 }),
+      carPosition: useState({ x: 1, y: 1 }),
       boxes: useState([]),
       robotDirection: useState([]),
       endPosition: { x: 5, y: 5 },
@@ -103,7 +103,7 @@ const Carousel = () => {
     {
       row: 5,
       col: 5,
-      carPosition: useState({ x: 0, y: 0 }),
+      carPosition: useState({ x: 1, y: 1 }),
       boxes: useState([]),
       robotDirection: useState([]),
       endPosition: { x: 5, y: 5 },
@@ -117,7 +117,7 @@ const Carousel = () => {
     {
       row: 5,
       col: 5,
-      carPosition: useState({ x: 0, y: 0 }),
+      carPosition: useState({ x: 1, y: 1 }),
       boxes: useState([]),
       robotDirection: useState([]),
       endPosition: { x: 5, y: 5 },
@@ -131,7 +131,7 @@ const Carousel = () => {
     {
       row: 5,
       col: 5,
-      carPosition: useState({ x: 0, y: 0 }),
+      carPosition: useState({ x: 1, y: 1}),
       boxes: useState([]),
       robotDirection: useState([]),
       endPosition: { x: 5, y: 5 },
@@ -145,7 +145,7 @@ const Carousel = () => {
     {
       row: 5,
       col: 5,
-      carPosition: useState({ x: 0, y: 0 }),
+      carPosition: useState({ x: 1, y: 1 }),
       boxes: useState([]),
       robotDirection: useState([]),
       endPosition: { x: 5, y: 5 },
@@ -158,7 +158,7 @@ const Carousel = () => {
     {
       row: 6,
       col: 6,
-      carPosition: useState({ x: 0, y: 0 }),
+      carPosition: useState({ x: 1, y: 1 }),
       boxes: useState([]),
       robotDirection: useState([]),
       endPosition: { x: 6, y: 6 },
@@ -171,7 +171,7 @@ const Carousel = () => {
      {
       row: 8,
       col: 8,
-      carPosition: useState({ x: 0, y: 0 }),
+      carPosition: useState({ x: 1, y: 1 }),
       boxes: useState([]),
       robotDirection: useState([]),
       endPosition: { x: 8, y: 8 },

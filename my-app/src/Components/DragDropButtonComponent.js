@@ -30,6 +30,8 @@ function DragDropButtonComponent({
   setShowPopUp,
   setPopUpStatus,
   setPopUpDesc,
+  obstaclePosition,
+  endPosition
 }) {
   //Note If anything depend upon previous state in setInterval then direct state update to ho jayega but bcz of closure setInterval purane vale par hi kaam krega so
   // state should update based on previous state.
@@ -166,7 +168,9 @@ function DragDropButtonComponent({
               carInitialHealth,
               setShowPopUp,
               setPopUpStatus,
-              setPopUpDesc
+              setPopUpDesc,
+              obstaclePosition,
+              endPosition
             )
           }
         >
@@ -187,7 +191,8 @@ function DragDropButtonComponent({
               carInitialHealth,
               boxSize,
               setBoxSize,
-              initialBoxSize
+              initialBoxSize,
+              endPosition
             )
           }
         >
