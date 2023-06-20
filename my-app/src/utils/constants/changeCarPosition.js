@@ -16,9 +16,8 @@ export const eraseBoxes = (
   batteryPosition,
   carInitialHealth,
   boxSize,
-  setBoxSize,
-  initialBoxSize,
-  endPosition
+  setBoxSizeTemp,
+  setBoxIndex
 ) => {
   setBoxes(new Array(boxSize).fill(null));
   setCarPosition({ x: 1, y: 1 });
@@ -26,6 +25,8 @@ export const eraseBoxes = (
   setCarHealth && setCarHealth(carInitialHealth);
   setFilterBatteryPosition && setFilterBatteryPosition(batteryPosition);
   clearInterval(interval);
+  setBoxSizeTemp(boxSize);
+  setBoxIndex(0);
 };
 const showPopUpMsg = (
   setShowPopUp,
@@ -49,12 +50,12 @@ const showPopUpMsg = (
 };
 export const checkEmptyBox = (
   boxes,
-  boxSize,
+  boxSizeTemp,
   setPopUpDesc,
   setPopUpStatus,
   setShowPopUp
 ) => {
-  for (let i = 0; i < boxSize; i++) {
+  for (let i = 0; i < boxSizeTemp; i++) {
     if (!boxes[i]) {
       setPopUpDesc("Please Fill All Box First!");
       setPopUpStatus("X");
@@ -65,7 +66,7 @@ export const checkEmptyBox = (
   return false;
 };
 export const changeCarPosition = (
-  boxSize,
+  boxSizeTemp,
   setRobotDirection,
   filterBatteryPosition,
   setCarHealth,
@@ -84,7 +85,7 @@ export const changeCarPosition = (
   obstaclePosition,
   endPosition
 ) => {
-  if (checkEmptyBox(boxes, boxSize, setPopUpDesc, setPopUpStatus, setShowPopUp))
+  if (checkEmptyBox(boxes, boxSizeTemp, setPopUpDesc, setPopUpStatus, setShowPopUp))
     return;
 
   setRobotDirection([]);
@@ -210,7 +211,7 @@ export const changeCarPosition = (
         ...prevDirection,
         `Robot Move ${box}`,
       ]);
-      if (index > boxSize) {
+      if (index > boxSizeTemp) {
         showPopup("Fail", "Oops! Robot havent reached the destination.");
         return;
       }

@@ -16,7 +16,6 @@ function DragDropButtonComponent({
   col,
   boxSize,
   setBoxSize,
-  initialBoxSize,
   setCarPosition,
   buttons,
   handleRotateCarClockWise,
@@ -38,6 +37,8 @@ function DragDropButtonComponent({
 
   //For Drag And Drop Connection
   const [draggedButtonId, setDraggedButtonId] = useState(null);
+  const [boxIndex , setBoxIndex] = useState(0);
+  const [boxSizeTemp , setBoxSizeTemp] = useState(boxSize);
 
   //Note- As setInterval() is callback() so in closure it takes initial value each time so kabhi bhi agr setInterval me
   //har itertaion me previous state updation ki need ho to  ref use kro because closure ki vjh se always initial state hi lega vo.
@@ -77,6 +78,17 @@ function DragDropButtonComponent({
         className=" bg-gray-300 text-white rounded mx-1 w-6 h-6 sm:w-7 sm:h-7 md:h-9 md:w-9 p-2"
         draggable="true"
         onDragStart={() => handleDragStart(buttonId)}
+        onClick={()=>{
+          if(boxIndex === boxSizeTemp){
+            setShowPopUp(true);
+            setPopUpDesc("All button is filled, first Increase button!");
+            return;
+          }
+          const updatedBoxes = [...boxes];
+          updatedBoxes[boxIndex] = buttonId;
+          setBoxIndex(boxIndex+1);
+          setBoxes(updatedBoxes);
+        }}
       >
         <img src={buttonText} alt="|" className="h-full w-full" />
       </button>
@@ -97,15 +109,15 @@ function DragDropButtonComponent({
   };
 
   const increaseBoxSize = () => {
-    if (boxSize >= 20) {
+    if (boxSizeTemp >= 20) {
       setShowPopUp(true);
       setPopUpDesc("20 button is enough to win this game!");
       setPopUpStatus("Can't Add Button");
     } else if (
-      !checkEmptyBox(boxes, boxSize, setPopUpDesc, setPopUpStatus, setShowPopUp)
+      !checkEmptyBox(boxes, boxSizeTemp, setPopUpDesc, setPopUpStatus, setShowPopUp)
     ) {
       setBoxes(boxes.concat(new Array(1).fill(null)));
-      setBoxSize(boxSize + 1);
+      setBoxSizeTemp(boxSizeTemp + 1);
     } else {
       setShowPopUp(true);
       setPopUpDesc("Please Fill All Box First!");
@@ -135,7 +147,7 @@ function DragDropButtonComponent({
                 updatedBoxes.pop(); // Remove the last element
                 return updatedBoxes;
               });
-              setBoxSize(boxSize - 1);
+              setBoxSizeTemp(boxSizeTemp - 1);
             }}
           >
             -
@@ -153,7 +165,7 @@ function DragDropButtonComponent({
           className="bg-yellow-500 px-2 text-bold h-7 w-12 sm:h-9 sm:w-20 pt-1 flex justify-between mx-2 text-blue-600"
           onClick={() =>
             changeCarPosition(
-              boxSize,
+              boxSizeTemp,
               setRobotDirection,
               filterBatteryPosition,
               setCarHealth,
@@ -190,9 +202,8 @@ function DragDropButtonComponent({
               batteryPosition,
               carInitialHealth,
               boxSize,
-              setBoxSize,
-              initialBoxSize,
-              endPosition
+              setBoxSizeTemp,
+              setBoxIndex
             )
           }
         >

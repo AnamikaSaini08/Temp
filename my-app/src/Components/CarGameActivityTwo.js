@@ -14,7 +14,6 @@ function CarGameActivityTwo({
   endPosition,
   boxSize,
   setBoxSize,
-  initialBoxSize,
   boxes,
   setBoxes,
   robotDirection,
@@ -43,7 +42,7 @@ function CarGameActivityTwo({
 
   return (
     <div>
-      <div className={`flex h-screen ${showPopUp && 'opacity-40'}`}>
+      <div className={`flex h-screen ${showPopUp && ''}`}>
         <div className={`w-1/3 overflow-y-auto h-screen hidden sm:block`}>
           <GameInstructions />
         </div>
@@ -87,7 +86,6 @@ function CarGameActivityTwo({
               col={col}
               boxSize={boxSize}
               setBoxSize = {setBoxSize}
-              initialBoxSize = {initialBoxSize}
               setCarPosition={setCarPosition}
               buttons={buttons}
               handleRotateCarClockWise={handleRotateCarClockWise}
