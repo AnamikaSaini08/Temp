@@ -19,7 +19,7 @@ const GameMatrix = ({
       
       const rowGreaterFive = row > 5 || col > 5;
       const rowGraterSeven = row > 7 || col > 7;
-      const gridBlockSize = rowGreaterFive ? ( rowGraterSeven ? ('h-6 w-6 sm:h-7 sm:w-7 xl:h-10 xl:w-10 2xl:h-24 2xl:w-24') : ('h-7 w-7 sm:h-7 sm:w-7 xl:h-12 xl:w-12 2xl:h-28 2xl:w-28')): ('h-12 w-12 xl:h-16 xl:w-16 2xl:h-32 2xl:w-32');
+      const gridBlockSize = rowGreaterFive ? ( rowGraterSeven ? ('h-6 w-6 sm:h-7 sm:w-7 xl:h-10 xl:w-10 2xl:h-16 2xl:w-16') : ('h-7 w-7 sm:h-7 sm:w-7 xl:h-12 xl:w-12 2xl:h-16 2xl:w-16')): ('h-12 w-12 xl:h-16 xl:w-16 2xl:h-24 2xl:w-24');
   
       if (adjustedColIndex === carPosition?.x && adjustedRowIndex === carPosition?.y) {
         return (

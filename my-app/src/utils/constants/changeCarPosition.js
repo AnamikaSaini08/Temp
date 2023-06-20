@@ -124,7 +124,7 @@ export const changeCarPosition = (
     }
     // Robot Final Destination
     if (pos.x === endPosition.x && pos.y === endPosition.y && count === 0) {
-      showPopup("Win", `You won the game in ${robotSteps - 1} steps`);
+      showPopup("Win", `Hurray! You won the game in ${robotSteps - 1} steps`);
       return;
     }
     const box = boxes[index];
@@ -136,12 +136,12 @@ export const changeCarPosition = (
             (coord) => coord[0] === pos.x - 1 && coord[1] === pos.y
           )
         ) {
-          showPopup("Fail", "You Fail! Robot went out of boundary.");
+          showPopup("Fail", "Oops! Robot havent reached the destination.");
         } else {
           pos = { ...pos, x: pos.x - 1 };
         }
       } else {
-        showPopup("Fail", "You Fail! Robot went out of boundary.");
+        showPopup("Fail", "Oops! Robot havent reached the destination.");
         return;
       }
     } else if (box === "right") {
@@ -152,12 +152,12 @@ export const changeCarPosition = (
             (coord) => coord[0] === pos.x + 1 && coord[1] === pos.y
           )
         ) {
-          showPopup("Fail", "You Fail! Robot went out of boundary.");
+          showPopup("Fail", "Oops! Robot havent reached the destination.");
         } else {
           pos = { ...pos, x: pos.x + 1 };
         }
       } else {
-        showPopup("Fail", "You Fail! Robot went out of boundary.");
+        showPopup("Fail", "Oops! Robot havent reached the destination.");
         return;
       }
     } else if (box === "top") {
@@ -168,12 +168,12 @@ export const changeCarPosition = (
             (coord) => coord[0] === pos.x && coord[1] === pos.y - 1
           )
         ) {
-          showPopup("Fail", "You Fail! Robot went out of boundary.");
+          showPopup("Fail", "Oops! Robot havent reached the destination.");
         } else {
           pos = { ...pos, y: pos.y - 1 };
         }
       } else {
-        showPopup("Fail", "You Fail! Robot went out of boundary.");
+        showPopup("Fail", "Oops! Robot havent reached the destination.");
         return;
       }
     } else if (box === "bottom") {
@@ -184,12 +184,12 @@ export const changeCarPosition = (
             (coord) => coord[0] === pos.x && coord[1] === pos.y + 1
           )
         ) {
-          showPopup("Fail", "You Fail! Robot went out of boundary.");
+          showPopup("Fail", "Oops! Robot havent reached the destination.");
         } else {
           pos = { ...pos, y: pos.y + 1 };
         }
       } else {
-        showPopup("Fail", "You Fail! Robot went out of boundary.");
+        showPopup("Fail", "Oops! Robot havent reached the destination.");
         return;
       }
     } else if (box === "turn-right") {
@@ -211,7 +211,7 @@ export const changeCarPosition = (
         `Robot Move ${box}`,
       ]);
       if (index > boxSize) {
-        showPopup("Fail", "You Fail!");
+        showPopup("Fail", "Oops! Robot havent reached the destination.");
         return;
       }
   }, 1000);

@@ -43,8 +43,8 @@ function CarGameActivityTwo({
 
   return (
     <div>
-      <div className="flex h-screen ">
-        <div className="w-1/3 overflow-y-auto h-screen hidden sm:block">
+      <div className={`flex h-screen ${showPopUp && 'opacity-40'}`}>
+        <div className={`w-1/3 overflow-y-auto h-screen hidden sm:block`}>
           <GameInstructions />
         </div>
         <div className="w-full h-screen">
@@ -66,7 +66,7 @@ function CarGameActivityTwo({
               />
             </div>
             { showPopUp && (
-        <div className="fixed z-10 w-1/3 ">
+        <div className={`fixed w-1/3`}>
           <GamePopUp
             status={popUpStatus}
             desc={popUpDesc}
