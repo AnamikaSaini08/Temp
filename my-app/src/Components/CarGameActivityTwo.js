@@ -4,6 +4,7 @@ import DragDropButtonComponent from "./DragDropButtonComponent";
 import GameMatrix from "./GameMatrix";
 import LogicOutput from "./LogicOutput";
 import GamePopUp from "./GamePopUp";
+import Build from '../utils/images/Build.png';
 
 function CarGameActivityTwo({
   row,
@@ -25,7 +26,10 @@ function CarGameActivityTwo({
   carHealth,
   setCarHealth,
   carInitialHealth,
-  obstaclePosition
+  obstaclePosition,
+  currentSlide,
+  setCurrentSlide,
+  slideLength
 }) {
   const [rotateCarClockWise, setRotateCarClockWise] = useState(false);
   const [rotateCarAntiClockWise, setRotateCarAntiClockWise] = useState(false);
@@ -47,10 +51,15 @@ function CarGameActivityTwo({
           <GameInstructions />
         </div>
         <div className="w-full h-screen">
-          <div className="w-full h-14 2xl:h-28 bg-blue-950">
-            {carHealth && <h1 className="text-bold text-white flex justify-end px-5 py-3 text-lg">Robot Health: {carHealth}</h1>}
+          <div className="w-full h-14 2xl:h-28 bg-blue-950 flex justify-between">
+          <div className="flex ">
+            <img src={Build} alt="img" className="px-4 py-1"/>  
+            <h1 className="text-white text-lg text-bold pt-3">Build</h1>
           </div>
-          <div className={`flex justify-around text-center bg-blue-900 ${row>8 ? 'py-0' : 'py-5'} h-[57%] sm:h-[50%] xl:h-[58%] 2xl:h-[65%]`}>
+              {carHealth && <h1 className="text-bold text-white flex justify-end px-5 py-3 text-lg">Robot Health: {carHealth}</h1>}
+             
+          </div>
+          <div className={`flex justify-around text-center bg-blue-900 ${row>8 ? 'py-0' : 'py-5'} h-[59%] sm:h-[53%] xl:h-[60%] 2xl:h-[67%]`}>
           <div className={`grid grid-cols-${col} gap-0 mx-auto my-auto`} >
               <GameMatrix
                 row={row}
@@ -101,6 +110,9 @@ function CarGameActivityTwo({
               setPopUpDesc = {setPopUpDesc}
               obstaclePosition ={obstaclePosition}
               endPosition = {endPosition}
+              currentSlide ={currentSlide}
+              setCurrentSlide = {setCurrentSlide}
+              slideLength ={slideLength}
             />
           </div>
         </div>

@@ -7,6 +7,7 @@ import {
   eraseBoxes,
   checkEmptyBox,
 } from "../utils/constants/changeCarPosition";
+import { nextSlide, previousSlide } from "../utils/constants/slideChange";
 
 function DragDropButtonComponent({
   boxes,
@@ -30,7 +31,10 @@ function DragDropButtonComponent({
   setPopUpStatus,
   setPopUpDesc,
   obstaclePosition,
-  endPosition
+  endPosition,
+  currentSlide,
+  setCurrentSlide,
+  slideLength
 }) {
   //Note If anything depend upon previous state in setInterval then direct state update to ho jayega but bcz of closure setInterval purane vale par hi kaam krega so
   // state should update based on previous state.
@@ -75,7 +79,7 @@ function DragDropButtonComponent({
     const buttonText = setButtonText(buttonId);
     return (
       <button
-        className=" bg-gray-300 text-white rounded mx-1 w-6 h-6 sm:w-7 sm:h-7 md:h-9 md:w-9 p-2"
+        className=" bg-gray-300 text-white rounded mx-1 w-6 h-6 sm:w-7 sm:h-7 lg:h-8 lg:w-8 xl:h-9 xl:w-9 p-2"
         draggable="true"
         onDragStart={() => handleDragStart(buttonId)}
         onClick={()=>{
@@ -99,7 +103,7 @@ function DragDropButtonComponent({
     return boxes.map((box, index) => (
       <div
         key={index}
-        className="bg-gray-300 w-6 h-6 sm:w-7 sm:h-7 md:h-9 md:w-9  items-center m-1 rounded-sm object-cover"
+        className="bg-gray-300 w-6 h-6 sm:w-8 sm:h-8 lg:9 lg:9 xl:h-10 xl:w-10 2xl:w-11 2xl:h-11  items-center m-1 rounded-sm object-cover"
         onDragOver={handleDragOver}
         onDrop={() => handleDrop(index)}
       >
@@ -128,11 +132,11 @@ function DragDropButtonComponent({
 
   return (
     <div className="w-full sticky">
-      <div className="bg-blue-600 px-1 sm:px-6 sm:pb-3">
-        <div className="flex  sm:py-2">
-          <h1 className=" text-white text-lg 2xl:text-4xl">Logic Panel</h1>
+      <div className="bg-blue-600 px-1 sm:px-6 py-2 sm:py-4 lg:py-5 xl:py-6 2xl:py-7">
+        <div className="flex sm:pb-2 sm:pt-1">
+          <h1 className=" text-white text-lg xl:text-2xl 2xl:text-4xl">Logic Panel</h1>
           <button
-            className="ml-5 px-2 w-6 h-6 rounded-sm text-blue-600 text-bold text-xl flex justify-center bg-yellow-500 "
+            className="ml-5 px-2 w-6 h-6 xl:w-8 xl:h-8 rounded-sm text-blue-600 text-bold text-xl flex justify-center bg-yellow-500 "
             onClick={() => {
               increaseBoxSize();
             }}
@@ -140,7 +144,7 @@ function DragDropButtonComponent({
             +
           </button>
           <button
-            className="ml-5 px-2 w-6 h-6 rounded-sm text-blue-600 text-bold text-xl flex justify-center bg-yellow-500"
+            className="ml-5 px-2 w-6 h-6 xl:w-8 xl:h-8 rounded-sm text-blue-600 text-bold text-xl flex justify-center bg-yellow-500"
             onClick={() => {
               setBoxes((prevBoxes) => {
                 const updatedBoxes = [...prevBoxes];
@@ -157,58 +161,78 @@ function DragDropButtonComponent({
         <div className="flex flex-wrap">{showEmptyBoxes(boxes)}</div>
       </div>
 
-      <div className="flex h-full bg-blue-950 py-2 sm:py-3 px-1 sm:px-6">
-        <div className="flex flex-wrap ">
-          {buttons.map((button) => renderButton(button))}
-        </div>
-        <button
-          className="bg-yellow-500 px-2 text-bold h-7 w-12 sm:h-9 sm:w-20 pt-1 flex justify-between mx-2 text-blue-600"
-          onClick={() =>
-            changeCarPosition(
-              boxSizeTemp,
-              setRobotDirection,
-              filterBatteryPosition,
-              setCarHealth,
-              carHealthRef,
-              boxes,
-              setFilterBatteryPosition,
-              setCarPosition,
-              row,
-              col,
-              handleRotateCarClockWise,
-              handleRotateCarAntiClockWise,
-              carInitialHealth,
-              setShowPopUp,
-              setPopUpStatus,
-              setPopUpDesc,
-              obstaclePosition,
-              endPosition
-            )
-          }
-        >
-          <img src={Play} className="truncate h-5 w-0 sm:h-7 sm:w-6" />
-          Play
-        </button>
+      <div className="flex h-full bg-blue-950 py-3 sm:py-4 2xl:py-7  px-1 sm:px-6 ">
+        <div className="flex justify-between h-screen w-full">
+            <div className="flex flex-wrap">
+              {buttons.map((button) => renderButton(button))}
+              <div className="flex">
+              <button
+                className="bg-yellow-500 px-2 text-bold h-7 w-12 sm:h-9 sm:w-20 pt-1 flex justify-between mx-2 text-blue-600"
+                onClick={() =>
+                  changeCarPosition(
+                    boxSizeTemp,
+                    setRobotDirection,
+                    filterBatteryPosition,
+                    setCarHealth,
+                    carHealthRef,
+                    boxes,
+                    setFilterBatteryPosition,
+                    setCarPosition,
+                    row,
+                    col,
+                    handleRotateCarClockWise,
+                    handleRotateCarAntiClockWise,
+                    carInitialHealth,
+                    setShowPopUp,
+                    setPopUpStatus,
+                    setPopUpDesc,
+                    obstaclePosition,
+                    endPosition
+                  )
+                }
+              >
+                <img src={Play} className="truncate h-5 w-0 sm:h-7 sm:w-6" />
+                Play
+              </button>
 
-        <button
-          className="bg-yellow-500 px-4 text-bold h-7 w-7 sm:h-9 sm:w-14"
-          onClick={() =>
-            eraseBoxes(
-              setBoxes,
-              setCarPosition,
-              setRobotDirection,
-              setCarHealth,
-              setFilterBatteryPosition,
-              batteryPosition,
-              carInitialHealth,
-              boxSize,
-              setBoxSizeTemp,
-              setBoxIndex
-            )
-          }
-        >
-          <img src={Reset} className="h-6 w-7" />
-        </button>
+              <button
+                className="bg-yellow-500 px-4 text-bold h-7 w-7 sm:h-9 sm:w-14"
+                onClick={() =>
+                  eraseBoxes(
+                    setBoxes,
+                    setCarPosition,
+                    setRobotDirection,
+                    setCarHealth,
+                    setFilterBatteryPosition,
+                    batteryPosition,
+                    carInitialHealth,
+                    boxSize,
+                    setBoxSizeTemp,
+                    setBoxIndex
+                  )
+                }
+              >
+                <img src={Reset} className="h-6 w-7" />
+              </button>
+            </div>
+            </div>
+            <div>
+            <button
+              onClick={
+                ()=>setCurrentSlide(previousSlide(currentSlide , slideLength))
+              }
+              className="px-1 sm:px-3 sm:py-2 mx-2 bg-yellow-500 text-blue-600 text-bold hover:bg-yellow-600"
+            >
+              &lt; Previous
+            </button>
+            <button
+              onClick={()=>setCurrentSlide(nextSlide(currentSlide,slideLength))}
+              className="px-1 sm:px-3 sm:py-2 bg-yellow-500 text-blue-600 text-bold hover:bg-yellow-600"
+            >
+              Next &gt;
+            </button>
+          </div>
+      </div>
       </div>
     </div>
   );

@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import QuizGame from "./QuizGame";
 import CarGameActivityTwo from "./CarGameActivityTwo";
 import RobotImg from "../utils/images/robot.png";
 
 const Carousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const slideLength = 15;
 
   const carGames = [
     {
@@ -184,14 +182,6 @@ const Carousel = () => {
     
   ];
 
-  const nextSlide = () => {
-    setCurrentSlide((currentSlide + 1) % slideLength);
-  };
-
-  const previousSlide = () => {
-    setCurrentSlide((currentSlide - 1 + slideLength) % slideLength);
-  };
-
   return (
     <div className="w-screen h-screen flex flex-col justify-center items-center">
       <div className="relative overflow-x-hidden overflow-y-hidden w-full h-full">
@@ -222,28 +212,13 @@ const Carousel = () => {
                 setCarHealth={game.carHealth && game.carHealth[1]}
                 carInitialHealth={game.carInitialHealth}
                 obstaclePosition={game.obstaclePosition}
+                currentSlide ={currentSlide}
+                setCurrentSlide = {setCurrentSlide}
+                slideLength ={14}
               />
             </div>
           ))}
-          
-          <div className="w-full flex-shrink-0 px-4 h-full flex items-center justify-center bg-gradient-to-r from-violet-300 to-fuchsia-500 ">
-            <QuizGame />
-          </div>
         </div>
-      </div>
-      <div className="flex justify-between mt-4">
-        <button
-          onClick={previousSlide}
-          className="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600"
-        >
-          &lt; Previous
-        </button>
-        <button
-          onClick={nextSlide}
-          className="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600"
-        >
-          Next &gt;
-        </button>
       </div>
     </div>
   );

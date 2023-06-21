@@ -1,10 +1,12 @@
-import React from 'react'
+import React from 'react';
+import Book from '../utils/images/book.png';
 
 const GameInstructions = () => {
   return (
     <div className=' text-white to-fuchsia-300 sm:h-screen'>
-     <div className='bg-gray-300 h-14 2xl:h-28'> 
-              
+     <div className='bg-gray-300 h-14 2xl:h-28 flex'> 
+              <img src={Book} alt="img" className='h-full px-4'/>
+              <h1 className='text-xl text-black text-bold py-3'>Learn</h1>
       </div>
       <ol style={{ listStyleType: 'decimal' }} className="space-y-2 sm:px-5 sm:py-4 leading-5 sm:leading-6 bg-gray-100 text-black text-md">
         <li>The objective of the game is to move a car from the starting position to the end position on the game board.</li>
