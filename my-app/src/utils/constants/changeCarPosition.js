@@ -111,18 +111,7 @@ export const changeCarPosition = (
   // When Traverse all BoxSize
   interval = setInterval(() => {
     robotSteps++;
-    // When Robot Reach on Battery Position
-    if (
-      filterBatteryPosition &&
-      filterBatteryPosition.some(
-        (coord) => coord[0] === pos.x && coord[1] === pos.y
-      )
-    ) {
-      showPopup("Hurrahhh!!!", "You Have Collected a Battery!", true);
-      setCarHealth(carHealthRef.current + batteryHealth);
-      fun(pos.x, pos.y, setFilterBatteryPosition);
-      count--;
-    }
+
     // Robot Final Destination
     if (pos.x === endPosition.x && pos.y === endPosition.y && count === 0) {
       showPopup("Win", `Hurray! You won the game in ${robotSteps - 1} steps`);
@@ -137,12 +126,12 @@ export const changeCarPosition = (
             (coord) => coord[0] === pos.x - 1 && coord[1] === pos.y
           )
         ) {
-          showPopup("Fail", "Oops! Robot havent reached the destination.");
+          showPopup("Fail", "You Fail! Robot got stuck on the way");
         } else {
           pos = { ...pos, x: pos.x - 1 };
         }
       } else {
-        showPopup("Fail", "Oops! Robot havent reached the destination.");
+        showPopup("Fail", "You Fail! Robot got stuck on the way");
         return;
       }
     } else if (box === "right") {
@@ -153,12 +142,12 @@ export const changeCarPosition = (
             (coord) => coord[0] === pos.x + 1 && coord[1] === pos.y
           )
         ) {
-          showPopup("Fail", "Oops! Robot havent reached the destination.");
+          showPopup("Fail", "You Fail! Robot got stuck on the way");
         } else {
           pos = { ...pos, x: pos.x + 1 };
         }
       } else {
-        showPopup("Fail", "Oops! Robot havent reached the destination.");
+        showPopup("Fail", "You Fail! Robot got stuck on the way");
         return;
       }
     } else if (box === "top") {
@@ -169,12 +158,12 @@ export const changeCarPosition = (
             (coord) => coord[0] === pos.x && coord[1] === pos.y - 1
           )
         ) {
-          showPopup("Fail", "Oops! Robot havent reached the destination.");
+          showPopup("Fail", "You Fail! Robot got stuck on the way");
         } else {
           pos = { ...pos, y: pos.y - 1 };
         }
       } else {
-        showPopup("Fail", "Oops! Robot havent reached the destination.");
+        showPopup("Fail", "You Fail! Robot got stuck on the way");
         return;
       }
     } else if (box === "bottom") {
@@ -185,12 +174,12 @@ export const changeCarPosition = (
             (coord) => coord[0] === pos.x && coord[1] === pos.y + 1
           )
         ) {
-          showPopup("Fail", "Oops! Robot havent reached the destination.");
+          showPopup("Fail", "You Fail! Robot got stuck on the way");
         } else {
           pos = { ...pos, y: pos.y + 1 };
         }
       } else {
-        showPopup("Fail", "Oops! Robot havent reached the destination.");
+        showPopup("Fail", "You Fail! Robot got stuck on the way");
         return;
       }
     } else if (box === "turn-right") {
@@ -200,19 +189,36 @@ export const changeCarPosition = (
     }
     // Rest of your logic
     if (carHealthRef.current === 0) {
-      showPopup("Fail", "Robot Died!");
+      showPopup("Fail", "You Fail! Robot ran out of health");
       return;
     }
     index++;
     setCarPosition({ ...pos });
     setCarHealth && setCarHealth((prevHealth) => prevHealth - 1);
-    if (box)
-      setRobotDirection((prevDirection) => [
-        ...prevDirection,
-        `Robot Move ${box}`,
-      ]);
+    if (box){
+      // When Robot Reach on Battery Position
+        if (
+          filterBatteryPosition &&
+          filterBatteryPosition.some(
+            (coord) => coord[0] === pos.x && coord[1] === pos.y
+          )
+        ) {
+          setRobotDirection((prevDirection) => [
+            ...prevDirection,
+            `Robot Move ${box}. (Robot Collected Coin)`,
+          ]);
+          setCarHealth(carHealthRef.current + batteryHealth);
+          fun(pos.x, pos.y, setFilterBatteryPosition);
+          count--;
+        }else{
+          setRobotDirection((prevDirection) => [
+            ...prevDirection,
+            `Robot Move ${box}`,
+          ]);
+        }
+    }
       if (index > boxSizeTemp) {
-        showPopup("Fail", "Oops! Robot havent reached the destination.");
+        showPopup("Fail", "You Fail! Robot got stuck on the way");
         return;
       }
   }, 1000);
