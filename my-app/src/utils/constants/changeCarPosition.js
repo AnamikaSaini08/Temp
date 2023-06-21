@@ -1,3 +1,5 @@
+import { playFailSound, playWallHitSound, playWinSound , playGetCoinSound } from "./gameSounds";
+
 let interval;
 async function fun(x, y, setFilterBatteryPosition) {
   await setFilterBatteryPosition((prevFilterBatteryPosition) =>
@@ -28,7 +30,7 @@ export const eraseBoxes = (
   clearInterval(interval);
   setBoxSizeTemp(boxSize);
   setBoxIndex(0);
-  setCoins(0);
+  setCoins && setCoins(0);
 };
 const showPopUpMsg = (
   setShowPopUp,
@@ -46,7 +48,7 @@ const showPopUpMsg = (
     }, 2000);
   setPopUpStatus(status);
   setPopUpDesc(desc);
-  if (status === "Fail" || status === "Win") {
+  if (status === "Fail" || status === "Win" || status === "Stuck") {
     clearInterval(interval);
   }
 };
@@ -103,6 +105,12 @@ export const changeCarPosition = (
 
   // Function to show popup message
   const showPopup = (status, desc, isSuccess = false) => {
+    if(status === "Stuck"){
+      playWallHitSound();
+    }
+    if(status === "Fail"){
+      playFailSound();
+    }
     showPopUpMsg(
       setShowPopUp,
       setPopUpStatus,
@@ -119,6 +127,7 @@ export const changeCarPosition = (
 
     // Robot Final Destination
     if (pos.x === endPosition.x && pos.y === endPosition.y && count === 0) {
+      playWinSound();
       showPopup("Win", `Hurray! You won the game in ${robotSteps - 1} steps`);
       return;
     }
@@ -131,12 +140,12 @@ export const changeCarPosition = (
             (coord) => coord[0] === pos.x - 1 && coord[1] === pos.y
           )
         ) {
-          showPopup("Fail", "You Fail! Robot got stuck on the way");
+          showPopup("Stuck", "You Fail! Robot got stuck on the way");
         } else {
           pos = { ...pos, x: pos.x - 1 };
         }
       } else {
-        showPopup("Fail", "You Fail! Robot got stuck on the way");
+        showPopup("Stuck", "You Fail! Robot got stuck on the way");
         return;
       }
     } else if (box === "right") {
@@ -147,12 +156,12 @@ export const changeCarPosition = (
             (coord) => coord[0] === pos.x + 1 && coord[1] === pos.y
           )
         ) {
-          showPopup("Fail", "You Fail! Robot got stuck on the way");
+          showPopup("Stuck", "You Fail! Robot got stuck on the way");
         } else {
           pos = { ...pos, x: pos.x + 1 };
         }
       } else {
-        showPopup("Fail", "You Fail! Robot got stuck on the way");
+        showPopup("Stuck", "You Fail! Robot got stuck on the way");
         return;
       }
     } else if (box === "top") {
@@ -163,12 +172,12 @@ export const changeCarPosition = (
             (coord) => coord[0] === pos.x && coord[1] === pos.y - 1
           )
         ) {
-          showPopup("Fail", "You Fail! Robot got stuck on the way");
+          showPopup("Stuck", "You Fail! Robot got stuck on the way");
         } else {
           pos = { ...pos, y: pos.y - 1 };
         }
       } else {
-        showPopup("Fail", "You Fail! Robot got stuck on the way");
+        showPopup("Stuck", "You Fail! Robot got stuck on the way");
         return;
       }
     } else if (box === "bottom") {
@@ -179,12 +188,12 @@ export const changeCarPosition = (
             (coord) => coord[0] === pos.x && coord[1] === pos.y + 1
           )
         ) {
-          showPopup("Fail", "You Fail! Robot got stuck on the way");
+          showPopup("Stuck", "You Fail! Robot got stuck on the way");
         } else {
           pos = { ...pos, y: pos.y + 1 };
         }
       } else {
-        showPopup("Fail", "You Fail! Robot got stuck on the way");
+        showPopup("Stuck", "You Fail! Robot got stuck on the way");
         return;
       }
     } else if (box === "turn-right") {
@@ -208,6 +217,7 @@ export const changeCarPosition = (
             (coord) => coord[0] === pos.x && coord[1] === pos.y
           )
         ) {
+          playGetCoinSound();
           setRobotDirection((prevDirection) => [
             ...prevDirection,
             `Robot Move ${box}. (Robot Collected Coin)`,

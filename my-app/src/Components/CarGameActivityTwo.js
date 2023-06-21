@@ -63,8 +63,8 @@ function CarGameActivityTwo({
               <div className="flex text-white">
                 {coins>=0 && <img src={Coin} alt="Coin" className="object-cover h-full p-3"/>}
                 {coins>=0 && <h1 className="mr-2 sm:mr-16 my-auto">Coins: {coins}</h1>}
-                {carHealth && <img src={Health} alt="Health" className="object-cover h-full p-3"/>}
-                {carHealth && <h1 className="my-auto mr-2 sm:mr-10">Health: {carHealth}</h1>}
+                {carHealth>=0 && <img src={Health} alt="Health" className="object-cover h-full p-3"/>}
+                {carHealth>=0 && <h1 className="my-auto mr-2 sm:mr-10">Health: {carHealth}</h1>}
               </div>
              
           </div>
