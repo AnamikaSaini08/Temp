@@ -34,7 +34,9 @@ function DragDropButtonComponent({
   endPosition,
   currentSlide,
   setCurrentSlide,
-  slideLength
+  slideLength,
+  coins,
+  setCoins
 }) {
   //Note If anything depend upon previous state in setInterval then direct state update to ho jayega but bcz of closure setInterval purane vale par hi kaam krega so
   // state should update based on previous state.
@@ -187,7 +189,9 @@ function DragDropButtonComponent({
                     setPopUpStatus,
                     setPopUpDesc,
                     obstaclePosition,
-                    endPosition
+                    endPosition,
+                    coins,
+                    setCoins
                   )
                 }
               >
@@ -208,7 +212,8 @@ function DragDropButtonComponent({
                     carInitialHealth,
                     boxSize,
                     setBoxSizeTemp,
-                    setBoxIndex
+                    setBoxIndex,
+                    setCoins
                   )
                 }
               >

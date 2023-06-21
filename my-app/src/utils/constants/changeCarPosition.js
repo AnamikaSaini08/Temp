@@ -17,7 +17,8 @@ export const eraseBoxes = (
   carInitialHealth,
   boxSize,
   setBoxSizeTemp,
-  setBoxIndex
+  setBoxIndex,
+  setCoins
 ) => {
   setBoxes(new Array(boxSize).fill(null));
   setCarPosition({ x: 1, y: 1 });
@@ -27,6 +28,7 @@ export const eraseBoxes = (
   clearInterval(interval);
   setBoxSizeTemp(boxSize);
   setBoxIndex(0);
+  setCoins(0);
 };
 const showPopUpMsg = (
   setShowPopUp,
@@ -83,7 +85,9 @@ export const changeCarPosition = (
   setPopUpStatus,
   setPopUpDesc,
   obstaclePosition,
-  endPosition
+  endPosition,
+  coins,
+  setCoins
 ) => {
   if (checkEmptyBox(boxes, boxSizeTemp, setPopUpDesc, setPopUpStatus, setShowPopUp))
     return;
@@ -92,6 +96,7 @@ export const changeCarPosition = (
   let pos = { x: 1, y: 1 }; // Start at { x: 1, y: 1 }
   let index = 0;
   let robotSteps = 0;
+  let coinTemp = coins;
   let count = filterBatteryPosition ? filterBatteryPosition.length : 0;
   const batteryHealth = 5;
   setCarHealth && setCarHealth(carInitialHealth);
@@ -210,6 +215,8 @@ export const changeCarPosition = (
           setCarHealth(carHealthRef.current + batteryHealth);
           fun(pos.x, pos.y, setFilterBatteryPosition);
           count--;
+          setCoins(coinTemp+1);
+          coinTemp++;
         }else{
           setRobotDirection((prevDirection) => [
             ...prevDirection,

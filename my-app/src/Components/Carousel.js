@@ -45,6 +45,7 @@ const Carousel = () => {
       boxSize: useState(12),
       carHealth: useState(10),
       carInitialHealth: 10,
+      coins: useState(0),
     },
     {
       row: 5,
@@ -58,19 +59,7 @@ const Carousel = () => {
       boxSize: useState(12),
       carHealth: useState(10),
       carInitialHealth: 10,
-    },
-    {
-      row: 5,
-      col: 5,
-      carPosition: useState({ x: 1, y: 1 }),
-      boxes: useState([]),
-      robotDirection: useState([]),
-      endPosition: { x: 5, y: 5 },
-      batteryPosition: useState([[1, 3],[1,4]]),
-      filterBatteryPosition: useState([[1, 4],[3,4]]),
-      boxSize: useState(12),
-      carHealth: useState(10),
-      carInitialHealth: 10,
+      coins: useState(0),
     },
     {
       row: 5,
@@ -84,6 +73,7 @@ const Carousel = () => {
       boxSize: useState(12),
       carHealth: useState(10),
       carInitialHealth: 10,
+      coins: useState(0),
     },
     {
       row: 5,
@@ -92,11 +82,26 @@ const Carousel = () => {
       boxes: useState([]),
       robotDirection: useState([]),
       endPosition: { x: 5, y: 5 },
-      batteryPosition: useState([[3,2],[1, 3],[1,4]]),
+      batteryPosition: useState([[1, 4],[3,4]]),
+      filterBatteryPosition: useState([[1, 4],[3,4]]),
+      boxSize: useState(12),
+      carHealth: useState(10),
+      carInitialHealth: 10,
+      coins: useState(0),
+    },
+    {
+      row: 5,
+      col: 5,
+      carPosition: useState({ x: 1, y: 1 }),
+      boxes: useState([]),
+      robotDirection: useState([]),
+      endPosition: { x: 5, y: 5 },
+      batteryPosition: useState([[3,2],[1, 4],[3,4]]),
       filterBatteryPosition: useState([[3,2],[1, 4],[3,4]]),
       boxSize: useState(12),
       carHealth: useState(10),
       carInitialHealth: 10,
+      coins: useState(0),
     },
     {
       row: 5,
@@ -110,7 +115,8 @@ const Carousel = () => {
       boxSize: useState(12),
       carHealth: useState(10),
       carInitialHealth: 10,
-      obstaclePosition : [[2,1],[2,2],[2,3],[2,4]]
+      obstaclePosition : [[2,1],[2,2],[2,3],[2,4]],
+      coins: useState(0),
     },
     {
       row: 5,
@@ -124,7 +130,8 @@ const Carousel = () => {
       boxSize: useState(12),
       carHealth: useState(10),
       carInitialHealth: 10,
-      obstaclePosition : [[2,1],[2,2],[4,3],[4,4]]
+      obstaclePosition : [[2,1],[2,2],[4,3],[4,4]],
+      coins: useState(0),
     },
     {
       row: 5,
@@ -138,7 +145,8 @@ const Carousel = () => {
       boxSize: useState(12),
       carHealth: useState(10),
       carInitialHealth: 10,
-      obstaclePosition : [[2,1],[2,2],[4,3],[4,4]]
+      obstaclePosition : [[2,1],[2,2],[4,3],[4,4]],
+      coins: useState(0),
     },
     {
       row: 5,
@@ -152,6 +160,7 @@ const Carousel = () => {
       boxSize: useState(12),
       carHealth: useState(10),
       carInitialHealth: 10,
+      coins: useState(0),
     },
     {
       row: 6,
@@ -165,6 +174,7 @@ const Carousel = () => {
       boxSize: useState(12),
       carHealth: useState(10),
       carInitialHealth: 10,
+      coins: useState(0),
     },
      {
       row: 8,
@@ -178,6 +188,7 @@ const Carousel = () => {
       boxSize: useState(12),
       carHealth: useState(10),
       carInitialHealth: 10,
+      coins: useState(0),
     },
     
   ];
@@ -215,6 +226,8 @@ const Carousel = () => {
                 currentSlide ={currentSlide}
                 setCurrentSlide = {setCurrentSlide}
                 slideLength ={14}
+                coins ={game.coins && game.coins[0]}
+                setCoins= {game.coins && game.coins[1]}
               />
             </div>
           ))}

@@ -5,6 +5,8 @@ import GameMatrix from "./GameMatrix";
 import LogicOutput from "./LogicOutput";
 import GamePopUp from "./GamePopUp";
 import Build from '../utils/images/Build.png';
+import Coin from '../utils/images/Coin.png';
+import Health from '../utils/images/Health.png';
 
 function CarGameActivityTwo({
   row,
@@ -29,7 +31,9 @@ function CarGameActivityTwo({
   obstaclePosition,
   currentSlide,
   setCurrentSlide,
-  slideLength
+  slideLength,
+  coins,
+  setCoins
 }) {
   const [rotateCarClockWise, setRotateCarClockWise] = useState(false);
   const [rotateCarAntiClockWise, setRotateCarAntiClockWise] = useState(false);
@@ -51,12 +55,17 @@ function CarGameActivityTwo({
           <GameInstructions />
         </div>
         <div className="w-full h-screen">
-          <div className="w-full h-14 2xl:h-28 bg-blue-950 flex justify-between">
+          <div className="w-full h-14 2xl:h-28 bg-blue-950 flex sm:justify-between">
           <div className="flex ">
             <img src={Build} alt="img" className="px-4 py-1"/>  
             <h1 className="text-white text-lg text-bold pt-3">Build</h1>
           </div>
-              {carHealth && <h1 className="text-bold text-white flex justify-end px-5 py-3 text-lg">Robot Health: {carHealth}</h1>}
+              <div className="flex text-white">
+                {coins>=0 && <img src={Coin} alt="Coin" className="object-cover h-full p-3"/>}
+                {coins>=0 && <h1 className="mr-2 sm:mr-16 my-auto">Coins: {coins}</h1>}
+                {carHealth && <img src={Health} alt="Health" className="object-cover h-full p-3"/>}
+                {carHealth && <h1 className="my-auto mr-2 sm:mr-10">Health: {carHealth}</h1>}
+              </div>
              
           </div>
           <div className={`flex justify-around text-center bg-blue-900 ${row>8 ? 'py-0' : 'py-5'} h-[59%] sm:h-[53%] xl:h-[60%] 2xl:h-[67%]`}>
@@ -113,6 +122,8 @@ function CarGameActivityTwo({
               currentSlide ={currentSlide}
               setCurrentSlide = {setCurrentSlide}
               slideLength ={slideLength}
+              coins ={coins}
+              setCoins ={setCoins}
             />
           </div>
         </div>
