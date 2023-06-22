@@ -74,6 +74,8 @@ function DragDropButtonComponent({
       const updatedBoxes = [...boxes];
       updatedBoxes[index] = draggedButtonId;
       setBoxes(updatedBoxes);
+      if(!boxes[index])
+        setBoxIndex(boxIndex+1);
       setDraggedButtonId(null);
     }
   };
@@ -216,7 +218,8 @@ function DragDropButtonComponent({
                     boxSize,
                     setBoxSizeTemp,
                     setBoxIndex,
-                    setCoins
+                    setCoins,
+                    setPlayButton
                   )
                 }
               >

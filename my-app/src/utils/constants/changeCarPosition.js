@@ -20,7 +20,8 @@ export const eraseBoxes = (
   boxSize,
   setBoxSizeTemp,
   setBoxIndex,
-  setCoins
+  setCoins,
+  setPlayButton
 ) => {
   setBoxes(new Array(boxSize).fill(null));
   setCarPosition({ x: 1, y: 1 });
@@ -31,6 +32,7 @@ export const eraseBoxes = (
   setBoxSizeTemp(boxSize);
   setBoxIndex(0);
   setCoins && setCoins(0);
+  setPlayButton(false);
 };
 const showPopUpMsg = (
   setShowPopUp,
