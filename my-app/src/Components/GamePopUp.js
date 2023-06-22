@@ -7,7 +7,7 @@ const GamePopUp = ({ status, desc, setShowPopUp }) => {
     <Zoom>
       <div className="bg-white rounded-lg">
         <div>
-          {status === "Fail" ? (
+          {(status === "Fail" || status === "Stuck" )? (
             <div className="border border-gray-400">
               <img
                 className="mx-auto my-auto w-28 h-32 2xl:w-36 2xl:h-36"

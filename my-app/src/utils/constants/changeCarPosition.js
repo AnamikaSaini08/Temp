@@ -62,7 +62,7 @@ export const checkEmptyBox = (
   for (let i = 0; i < boxSizeTemp; i++) {
     if (!boxes[i]) {
       setPopUpDesc("Please Fill All Box First!");
-      setPopUpStatus("X");
+      setPopUpStatus("Fail");
       setShowPopUp(true);
       return true;
     }
