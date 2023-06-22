@@ -45,6 +45,7 @@ function DragDropButtonComponent({
   const [draggedButtonId, setDraggedButtonId] = useState(null);
   const [boxIndex , setBoxIndex] = useState(0);
   const [boxSizeTemp , setBoxSizeTemp] = useState(boxSize);
+  const [playButton , setPlayButton] = useState(false);
 
   //Note- As setInterval() is callback() so in closure it takes initial value each time so kabhi bhi agr setInterval me
   //har itertaion me previous state updation ki need ho to  ref use kro because closure ki vjh se always initial state hi lega vo.
@@ -88,6 +89,7 @@ function DragDropButtonComponent({
           if(boxIndex === boxSizeTemp){
             setShowPopUp(true);
             setPopUpDesc("All button is filled, first Increase button!");
+            setPopUpStatus("Fail");
             return;
           }
           const updatedBoxes = [...boxes];
@@ -171,7 +173,7 @@ function DragDropButtonComponent({
               <button
                 className="bg-yellow-500 px-2 text-bold h-7 w-12 sm:h-9 sm:w-20 pt-1 flex justify-between mx-2 text-blue-600"
                 onClick={() =>
-                  changeCarPosition(
+                  playButton===false ? changeCarPosition(
                     boxSizeTemp,
                     setRobotDirection,
                     filterBatteryPosition,
@@ -191,8 +193,9 @@ function DragDropButtonComponent({
                     obstaclePosition,
                     endPosition,
                     coins,
-                    setCoins
-                  )
+                    setCoins,
+                    setPlayButton
+                  ) : ''
                 }
               >
                 <img src={Play} className="truncate h-5 w-0 sm:h-7 sm:w-6" />

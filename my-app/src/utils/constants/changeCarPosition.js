@@ -42,10 +42,6 @@ const showPopUpMsg = (
   battery
 ) => {
   setShowPopUp(true);
-  battery &&
-    setTimeout(() => {
-      setShowPopUp(false);
-    }, 2000);
   setPopUpStatus(status);
   setPopUpDesc(desc);
   if (status === "Fail" || status === "Win" || status === "Stuck") {
@@ -89,12 +85,14 @@ export const changeCarPosition = (
   obstaclePosition,
   endPosition,
   coins,
-  setCoins
+  setCoins,
+  setPlayButton
 ) => {
   if (checkEmptyBox(boxes, boxSizeTemp, setPopUpDesc, setPopUpStatus, setShowPopUp))
     return;
 
   setRobotDirection([]);
+  setPlayButton(true);
   let pos = { x: 1, y: 1 }; // Start at { x: 1, y: 1 }
   let index = 0;
   let robotSteps = 0;
@@ -111,6 +109,7 @@ export const changeCarPosition = (
     if(status === "Fail"){
       playFailSound();
     }
+    setPlayButton(false);
     showPopUpMsg(
       setShowPopUp,
       setPopUpStatus,
