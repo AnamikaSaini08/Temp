@@ -88,6 +88,9 @@ function CarGameActivityTwo({
             status={popUpStatus}
             desc={popUpDesc}
             setShowPopUp={setShowPopUp}
+            currentSlide ={currentSlide}
+            slideLength = {slideLength}
+            setCurrentSlide = {setCurrentSlide}
           />
         </div>
       )}

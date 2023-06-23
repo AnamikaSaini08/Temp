@@ -1,4 +1,4 @@
-import { playFailSound, playWallHitSound, playWinSound , playGetCoinSound } from "./gameSounds";
+import { playFailSound, playWallHitSound, playWinSound , playGetCoinSound, playWalkSound } from "./gameSounds";
 
 let interval;
 async function fun(x, y, setFilterBatteryPosition) {
@@ -90,9 +90,6 @@ export const changeCarPosition = (
   setCoins,
   setPlayButton
 ) => {
-  if (checkEmptyBox(boxes, boxSizeTemp, setPopUpDesc, setPopUpStatus, setShowPopUp))
-    return;
-
   setRobotDirection([]);
   setPlayButton(true);
   let pos = { x: 1, y: 1 }; // Start at { x: 1, y: 1 }
@@ -127,12 +124,18 @@ export const changeCarPosition = (
     robotSteps++;
 
     // Robot Final Destination
-    if (pos.x === endPosition.x && pos.y === endPosition.y && count === 0) {
+    if (pos.x === endPosition.x && pos.y === endPosition.y) {
       playWinSound();
       showPopup("Win", `Hurray! You won the game in ${robotSteps - 1} steps`);
       return;
     }
     const box = boxes[index];
+    if(!box){
+      clearInterval(interval);
+      showPopup("Fail","You Fail! Robot destination not reached");
+      return;
+    }
+    playWalkSound();
     if (box === "left") {
       if (pos.x > 1) {
         if (
@@ -210,33 +213,31 @@ export const changeCarPosition = (
     index++;
     setCarPosition({ ...pos });
     setCarHealth && setCarHealth((prevHealth) => prevHealth - 1);
-    if (box){
-      // When Robot Reach on Battery Position
-        if (
-          filterBatteryPosition &&
-          filterBatteryPosition.some(
-            (coord) => coord[0] === pos.x && coord[1] === pos.y
-          )
-        ) {
-          playGetCoinSound();
-          setRobotDirection((prevDirection) => [
-            ...prevDirection,
-            `Robot Move ${box}. (Robot Collected Coin)`,
-          ]);
-          setCarHealth(carHealthRef.current + batteryHealth);
-          fun(pos.x, pos.y, setFilterBatteryPosition);
-          count--;
-          setCoins(coinTemp+1);
-          coinTemp++;
-        }else{
-          setRobotDirection((prevDirection) => [
-            ...prevDirection,
-            `Robot Move ${box}`,
-          ]);
-        }
-    }
+    // When Robot Reach on Battery Position
+      if (
+        filterBatteryPosition &&
+        filterBatteryPosition.some(
+          (coord) => coord[0] === pos.x && coord[1] === pos.y
+        )
+      ) {
+        playGetCoinSound();
+        setRobotDirection((prevDirection) => [
+          ...prevDirection,
+          `Robot Move ${box}. (Robot Collected Coin)`,
+        ]);
+        setCarHealth(carHealthRef.current + batteryHealth);
+        fun(pos.x, pos.y, setFilterBatteryPosition);
+        count--;
+        setCoins(coinTemp+1);
+        coinTemp++;
+      }else{
+        setRobotDirection((prevDirection) => [
+          ...prevDirection,
+          `Robot Move ${box}`,
+        ]);
+      }
       if (index > boxSizeTemp) {
-        showPopup("Fail", "You Fail! Robot got stuck on the way");
+        showPopup("Fail", "You Fail! Robot destination not reached");
         return;
       }
   }, 1000);

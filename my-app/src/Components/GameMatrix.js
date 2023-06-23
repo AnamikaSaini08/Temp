@@ -1,5 +1,5 @@
 import React from "react";
-import boundary from '../utils/images/Boundary.png';
+import boundary from "../utils/images/Boundary.png";
 
 const GameMatrix = ({
   row,
@@ -10,22 +10,34 @@ const GameMatrix = ({
   image,
   endPosition,
   filterBatteryPosition,
-  obstaclePosition
+  obstaclePosition,
 }) => {
   return Array.from({ length: row }, (_, rowIndex) =>
     Array.from({ length: col }, (_, colIndex) => {
       const adjustedRowIndex = rowIndex + 1;
       const adjustedColIndex = colIndex + 1;
-      
+
       const rowGreaterFive = row > 5 || col > 5;
       const rowGraterSeven = row > 7 || col > 7;
-      const gridBlockSize = rowGreaterFive ? ( rowGraterSeven ? ('h-6 w-6 sm:h-7 sm:w-7 xl:h-10 xl:w-10 2xl:h-16 2xl:w-16') : ('h-7 w-7 sm:h-7 sm:w-7 xl:h-14 xl:w-14 2xl:h-16 2xl:w-16')): ('h-12 w-12 xl:h-16 xl:w-16 2xl:h-24 2xl:w-24');
-  
-      if (adjustedColIndex === carPosition?.x && adjustedRowIndex === carPosition?.y) {
+      const gridBlockSize = rowGreaterFive
+        ? rowGraterSeven
+          ? "h-6 w-6 sm:h-7 sm:w-7 xl:h-10 xl:w-10 2xl:h-16 2xl:w-16"
+          : "h-7 w-7 sm:h-7 sm:w-7 xl:h-14 xl:w-14 2xl:h-16 2xl:w-16"
+        : "h-12 w-12 xl:h-16 xl:w-16 2xl:h-24 2xl:w-24";
+
+      if (
+        adjustedColIndex === carPosition?.x &&
+        adjustedRowIndex === carPosition?.y
+      ) {
         return (
           <div
             key={`${adjustedRowIndex}-${adjustedColIndex}`}
-            className={`border border-gray-600 bg-yellow-400 ${gridBlockSize} p-0 m-0`}
+            className={`border border-gray-600 ${
+              adjustedColIndex === endPosition.x &&
+              adjustedRowIndex === endPosition.y
+                ? "bg-red-500"
+                : "bg-yellow-400"
+            } ${gridBlockSize} p-0 m-0`}
           >
             <img
               className={`h-full w-full object-cover ${
@@ -53,7 +65,8 @@ const GameMatrix = ({
       } else if (
         filterBatteryPosition &&
         filterBatteryPosition.some(
-          (coord) => coord[0] === adjustedColIndex && coord[1] === adjustedRowIndex
+          (coord) =>
+            coord[0] === adjustedColIndex && coord[1] === adjustedRowIndex
         )
       ) {
         return (
@@ -68,9 +81,13 @@ const GameMatrix = ({
             />
           </div>
         );
-      } else if (obstaclePosition && obstaclePosition.some(
-        (coord) => coord[0] === adjustedColIndex && coord[1] === adjustedRowIndex
-      )) {
+      } else if (
+        obstaclePosition &&
+        obstaclePosition.some(
+          (coord) =>
+            coord[0] === adjustedColIndex && coord[1] === adjustedRowIndex
+        )
+      ) {
         return (
           <div
             key={`${adjustedRowIndex}-${adjustedColIndex}`}

@@ -122,18 +122,11 @@ function DragDropButtonComponent({
     if (boxSizeTemp >= 20) {
       setShowPopUp(true);
       setPopUpDesc("20 button is enough to win this game!");
-      setPopUpStatus("Can't Add Button");
-    } else if (
-      !checkEmptyBox(boxes, boxSizeTemp, setPopUpDesc, setPopUpStatus, setShowPopUp)
-    ) {
-      setBoxes(boxes.concat(new Array(1).fill(null)));
-      setBoxSizeTemp(boxSizeTemp + 1);
-    } else {
-      setShowPopUp(true);
-      setPopUpDesc("Please Fill All Box First!");
-      setPopUpStatus("X");
+      setPopUpStatus("Stuck");
       return;
-    }
+    } 
+    setBoxes(boxes.concat(new Array(1).fill(null)));
+    setBoxSizeTemp(boxSizeTemp + 1);
   };
 
   return (
