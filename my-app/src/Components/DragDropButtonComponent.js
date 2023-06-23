@@ -145,12 +145,12 @@ function DragDropButtonComponent({
           <button
             className="ml-5 px-2 w-6 h-6 xl:w-8 xl:h-8 rounded-sm text-blue-600 text-bold text-xl flex justify-center bg-yellow-500"
             onClick={() => {
-              setBoxes((prevBoxes) => {
-                const updatedBoxes = [...prevBoxes];
-                updatedBoxes.pop(); // Remove the last element
-                return updatedBoxes;
-              });
+              const updatedBoxes = [...boxes];
+              updatedBoxes.pop();
+              setBoxes([...updatedBoxes]);
               setBoxSizeTemp(boxSizeTemp - 1);
+              if(boxes[boxes.length-1])
+                  setBoxIndex(boxIndex-1);
             }}
           >
             -

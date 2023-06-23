@@ -23,7 +23,7 @@ const GameMatrix = ({
         ? rowGraterSeven
           ? "h-6 w-6 sm:h-7 sm:w-7 xl:h-10 xl:w-10 2xl:h-16 2xl:w-16"
           : "h-7 w-7 sm:h-7 sm:w-7 xl:h-14 xl:w-14 2xl:h-16 2xl:w-16"
-        : "h-12 w-12 xl:h-16 xl:w-16 2xl:h-24 2xl:w-24";
+        : "h-12 w-12 xl:h-16 xl:w-16 2xl:h-20 2xl:w-20";
 
       if (
         adjustedColIndex === carPosition?.x &&
